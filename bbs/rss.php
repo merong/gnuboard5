@@ -77,7 +77,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 $date = $row['wr_datetime'];
 // rss 리더 스킨으로 호출하면 날짜가 제대로 표시되지 않음
 //$date = substr($date,0,10) . "T" . substr($date,11,8) . "+09:00";
-$date = date('r', strtotime($date));
+$date = date('c', strtotime($date));
 ?>
 <dc:date><?php echo $date ?></dc:date>
 </item>
