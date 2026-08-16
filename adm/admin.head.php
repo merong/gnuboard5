@@ -114,17 +114,17 @@ if (!empty($_COOKIE['g5_admin_btn_gnb'])) {
 <header id="hd">
     <h1><?php echo $config['cf_title'] ?></h1>
     <div id="hd_top">
-        <button type="button" id="btn_gnb" class="btn_gnb_close <?php echo $adm_menu_cookie['btn_gnb']; ?>">메뉴</button>
-        <div id="logo"><a href="<?php echo correct_goto_url(G5_ADMIN_URL); ?>"><img src="<?php echo G5_ADMIN_URL ?>/img/logo.png" alt="<?php echo get_text($config['cf_title']); ?> 관리자"></a></div>
+        <button type="button" id="btn_gnb" class="btn_gnb_close <?php echo $adm_menu_cookie['btn_gnb']; ?>"><span class="sound_only">메뉴</span></button>
+        <div id="logo"><a href="<?php echo correct_goto_url(G5_ADMIN_URL); ?>"><img src="<?php echo defined('G5_THEME_URL') ? G5_THEME_URL : (G5_URL . '/theme/portal'); ?>/img/moidam-logo.svg" alt="모담 관리자" class="adm_logo_img"></a></div>
 
-        <div id="tnb">
+        <div id="tnb" class="adm_tnb">
             <ul>
                 <?php if (defined('G5_USE_SHOP') && G5_USE_SHOP) { ?>
-                    <li class="tnb_li"><a href="<?php echo G5_SHOP_URL ?>/" class="tnb_shop" target="_blank" title="쇼핑몰 바로가기">쇼핑몰 바로가기</a></li>
+                    <li class="tnb_li"><a href="<?php echo G5_SHOP_URL ?>/" class="tnb_shop" target="_blank" title="쇼핑몰 바로가기">쇼핑몰</a></li>
                 <?php } ?>
-                <li class="tnb_li"><a href="<?php echo G5_URL ?>/" class="tnb_community" target="_blank" title="커뮤니티 바로가기">커뮤니티 바로가기</a></li>
+                <li class="tnb_li"><a href="<?php echo G5_URL ?>/" class="tnb_community" target="_blank" title="커뮤니티 바로가기">커뮤니티</a></li>
                 <li class="tnb_li"><a href="<?php echo G5_ADMIN_URL ?>/service.php" class="tnb_service">부가서비스</a></li>
-                <li class="tnb_li"><button type="button" class="tnb_mb_btn">관리자<span class="./img/btn_gnb.png">메뉴열기</span></button>
+                <li class="tnb_li"><button type="button" class="tnb_mb_btn">관리자<span class="tnb_mb_arrow">메뉴열기</span></button>
                     <ul class="tnb_mb_area">
                         <li><a href="<?php echo G5_ADMIN_URL ?>/member_form.php?w=u&amp;mb_id=<?php echo $member['mb_id'] ?>">관리자정보</a></li>
                         <li id="tnb_logout"><a href="<?php echo G5_BBS_URL ?>/logout.php">로그아웃</a></li>

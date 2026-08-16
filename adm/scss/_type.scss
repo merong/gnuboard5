@@ -1,0 +1,95 @@
+@use "tokens" as *;
+
+// 모담 type scale
+@mixin type-display {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+@mixin type-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+@mixin type-subtitle {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+}
+
+@mixin type-body {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+@mixin type-body-strong {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+@mixin type-ui {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+@mixin type-caption {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+// body stays 14px / 400 / 1.5 (reset)
+
+#container_title {
+  @include type-title;
+}
+
+#container h2,
+.h2_frm,
+.local_ov {
+  @include type-subtitle;
+}
+
+label {
+  @include type-body-strong;
+}
+
+table th {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+}
+
+table td {
+  font-size: 12px;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+table label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.frm_info,
+.local_desc {
+  @include type-caption;
+  color: $text-sub;
+}
+
+.tab-btn,
+#gnb .gnb_2da,
+#gnb .gnb_oparea li a {
+  @include type-ui;
+}

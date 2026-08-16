@@ -1,0 +1,13 @@
+{
+  "name": "gnuboard5-admin-scss",
+  "private": true,
+  "scripts": {
+    "build": "sass admin.scss ../css/admin.css --no-source-map --style=expanded"
+  },
+  "devDependencies": {
+    "sass": "^1.102.0"
+  },
+  "dependencies": {
+    "@xpressengine/xeicon": "2.3.3"
+  }
+}

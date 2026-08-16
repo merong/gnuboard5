@@ -1,0 +1,187 @@
+@use "tokens" as *;
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: $font;
+  color: $text;
+  background: $bg;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, h1, h2, h3, h4, h5, h6, form, fieldset, img {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font;
+  font-weight: 700;
+}
+
+h2 {
+  margin: 12px 0;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li, dt, dd, ol {
+  margin: 0;
+  padding: 0;
+}
+
+ol {
+  list-style-position: inside;
+}
+
+legend {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+  text-indent: -9999em;
+  overflow: hidden;
+  border: 0;
+}
+
+label, input, button, select, img {
+  vertical-align: middle;
+}
+
+input, button, textarea, select {
+  margin: 0;
+  font-family: $font;
+  font-size: 14px;
+}
+
+button,
+input[type="submit"],
+input[type="button"] {
+  cursor: pointer;
+}
+
+select {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+pre {
+  overflow-x: auto;
+  font-size: 13px;
+}
+
+a {
+  color: $navy;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $navy-hover;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+.is-visible {
+  display: block !important;
+}
+
+.pc-only {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .pc-only {
+    display: block !important;
+  }
+}
+
+.mobile-only {
+  display: block;
+}
+
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
+
+#hd_login_msg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.sound_only,
+.msg_sound_only,
+.blind,
+.sr-only {
+  overflow: hidden !important;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  clip: rect(0, 0, 0, 0);
+  border: 0 !important;
+}
+
+#to_content a {
+  z-index: $z-skip;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
+}
+
+#to_content a:focus,
+#to_content a:active {
+  width: 100%;
+  height: $top-h;
+  background: $surface;
+  color: $navy;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  line-height: $top-h;
+}
