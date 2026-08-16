@@ -58,9 +58,7 @@ if($config['cf_add_meta'])
 <?php
 if (defined('G5_IS_ADMIN')) {
     if(!defined('_THEME_PREVIEW_'))
-        $_adm_css = G5_ADMIN_PATH.'/css/admin.css';
-        $_adm_ver = (is_file($_adm_css) ? filemtime($_adm_css) : G5_CSS_VER);
-        echo '<link rel="stylesheet" href="'.run_replace('head_css_url', G5_ADMIN_URL.'/css/admin.css?ver='.$_adm_ver, G5_URL).'">'.PHP_EOL;
+        echo '<link rel="stylesheet" href="'.run_replace('head_css_url', G5_ADMIN_URL.'/css/admin.css?ver='.G5_CSS_VER, G5_URL).'">'.PHP_EOL;
 } else {
     $shop_css = '';
     if (defined('_SHOP_')) $shop_css = '_shop';

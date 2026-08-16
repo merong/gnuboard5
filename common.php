@@ -44,30 +44,14 @@ function g5_path()
     $document_root = str_replace($tilde_remove, '', $server_script_filename); 
     $pattern = '/.*?' . preg_quote($document_root, '/') . '/i';
     $root = preg_replace($pattern, '', $result['path']); 
-    $user = str_replace(preg_replace($pattern, '', $server_script_filename), '', $server_script_name);
-    $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
-    if (isset($_SERVER['HTTP_HOST']) && preg_match('/:[0-9]+$/', $host))
-        $host = preg_replace('/:[0-9]+$/', '', $host);
-    $host = preg_replace("/[\<\>\'\"\\\'\\\"\%\=\(\)\/\^\*]/", '', $host);
-
-    $fwd_proto = '';
-    if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-        $parts = explode(',', $_SERVER['HTTP_X_FORWARDED_PROTO']);
-        $fwd_proto = strtolower(trim($parts[0]));
-    } elseif (!empty($_SERVER['HTTP_CF_VISITOR']) && preg_match('/"scheme"\s*:\s*"(https|http)"/', $_SERVER['HTTP_CF_VISITOR'], $m)) {
-        $fwd_proto = $m[1];
-    }
-    $https_on = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on') || $fwd_proto === 'https';
-    $http = 'http' . ($https_on ? 's' : '') . '://';
-
-    $behind_proxy = ($fwd_proto !== '' || !empty($_SERVER['HTTP_CF_RAY']) || !empty($_SERVER['HTTP_CF_CONNECTING_IP']));
-    if ($behind_proxy) {
-        $port = '';
-    } else {
-        $std = $https_on ? 443 : 80;
-        $port = ((int)$_SERVER['SERVER_PORT'] === $std) ? '' : ':'.$_SERVER['SERVER_PORT'];
-    }
-    $result['url'] = $http.$host.$port.$user.$root;
+    $port = ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) ? '' : ':'.$_SERVER['SERVER_PORT']; 
+    $http = 'http' . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on') ? 's' : '') . '://'; 
+    $user = str_replace(preg_replace($pattern, '', $server_script_filename), '', $server_script_name); 
+    $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME']; 
+    if(isset($_SERVER['HTTP_HOST']) && preg_match('/:[0-9]+$/', $host)) 
+        $host = preg_replace('/:[0-9]+$/', '', $host); 
+    $host = preg_replace("/[\<\>\'\"\\\'\\\"\%\=\(\)\/\^\*]/", '', $host); 
+    $result['url'] = $http.$host.$port.$user.$root; 
     return $result;
 }
 

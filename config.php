@@ -218,10 +218,7 @@ define('G5_THUMB_JPG_QUALITY', 90);
 define('G5_THUMB_PNG_COMPRESS', 5);
 
 // 모바일 기기에서 DHTML 에디터 사용여부를 설정합니다.
-// page-ai-editor 를 쓰는 게시판은 extend/page_ai_editor.extend.php 와
-// plugin/editor/page-ai-editor/editor.lib.php 에서 true 로 정의합니다.
-// 여기서 false 로 먼저 정의하면 PHP 상수를 바꿀 수 없어 모바일 글쓰기가 textarea 로 떨어집니다.
-// define('G5_IS_MOBILE_DHTML_USE', false);
+define('G5_IS_MOBILE_DHTML_USE', false);
 
 // MySQLi 사용여부를 설정합니다.
 define('G5_MYSQLI_USE', true);

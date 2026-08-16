@@ -302,7 +302,7 @@ var win_point = function(href) {
  * 쪽지 창
  **/
 var win_memo = function(href) {
-    var new_win = window.open(href, 'win_memo', 'left=100,top=100,width=620,height=720,scrollbars=1');
+    var new_win = window.open(href, 'win_memo', 'left=100,top=100,width=620,height=500,scrollbars=1');
     new_win.focus();
 }
 
