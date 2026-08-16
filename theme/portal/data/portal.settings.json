@@ -1,0 +1,75 @@
+{
+    "logo_text": "모담",
+    "logo_img": "",
+    "logo_link": "",
+    "banners": [
+        {
+            "img": "/theme/portal/data/banner/bn1.jpg",
+            "link": "/bbs/board.php?bo_table=notice",
+            "target": "_self",
+            "alt": "모담 환영",
+            "pos_x": 50,
+            "pos_y": 50
+        },
+        {
+            "img": "/theme/portal/data/banner/bn2.jpg",
+            "link": "/bbs/board.php?bo_table=free",
+            "target": "_self",
+            "alt": "오늘의 이야기",
+            "pos_x": 50,
+            "pos_y": 50
+        },
+        {
+            "img": "/theme/portal/data/banner/bn3.jpg",
+            "link": "/bbs/board.php?bo_table=gallery",
+            "target": "_self",
+            "alt": "갤러리",
+            "pos_x": 50,
+            "pos_y": 50
+        }
+    ],
+    "top_banner": {
+        "img": "",
+        "link": "",
+        "target": "_self",
+        "alt": "",
+        "exclude_members": []
+    },
+    "footer_menu": [
+        {
+            "label": "공지사항",
+            "url": "/bbs/board.php?bo_table=notice"
+        },
+        {
+            "label": "자유게시판",
+            "url": "/bbs/board.php?bo_table=free"
+        },
+        {
+            "label": "갤러리",
+            "url": "/bbs/board.php?bo_table=gallery"
+        },
+        {
+            "label": "질문답변",
+            "url": "/bbs/board.php?bo_table=qa"
+        },
+        {
+            "label": "이용약관",
+            "url": "/bbs/content.php?co_id=provision"
+        },
+        {
+            "label": "개인정보처리방침",
+            "url": "/bbs/content.php?co_id=privacy",
+            "class": "privacy"
+        }
+    ],
+    "footer_copyright": "Copyright &copy; <b>모담</b> All rights reserved.",
+    "footer_info": "<span><b>커뮤니티:</b> 모담</span><span><b>소개:</b> 모두의 담소</span><span><b>문의:</b> Q&A 게시판을 이용해 주세요</span>",
+    "side_latest_bo": "free",
+    "side_popular_bo": "gallery",
+    "side_popular_days": 60,
+    "latest_exclude": [],
+    "top_ad_script": "",
+    "board_sidebar_ad": "",
+    "ad_exclude_members": [],
+    "theme_color": "navy"
+}

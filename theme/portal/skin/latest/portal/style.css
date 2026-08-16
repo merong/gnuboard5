@@ -1,0 +1,110 @@
+/* =============================================
+   Portal Latest Skin — ptl_lat_*
+   ============================================= */
+.ptl_lat { font-size: 14px; }
+
+.ptl_lat_head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 10px;
+    border-bottom: 2px solid #03c75a;
+    margin-bottom: 2px;
+}
+.ptl_lat_title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-decoration: none;
+}
+.ptl_lat_title:hover { color: #03c75a; }
+.ptl_lat_more {
+    font-size: 12px;
+    color: #aaa;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+.ptl_lat_more:hover { color: #03c75a; }
+
+.ptl_lat_list { list-style: none; margin: 0; padding: 0; }
+
+.ptl_lat_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-bottom: 1px solid #f2f2f2;
+    gap: 8px;
+}
+.ptl_lat_item:last-child { border-bottom: none; }
+.ptl_lat_notice { background: #fffef5; margin: 0 -4px; padding: 9px 4px; }
+
+.ptl_lat_link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+    min-width: 0;
+    text-decoration: none;
+    color: #1a1a1a;
+    font-size: 13px;
+    overflow: hidden;
+}
+.ptl_lat_link:hover .ptl_lat_tit { color: #03c75a; }
+
+.ptl_lat_tit {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ptl_lat_notice .ptl_lat_tit { font-weight: 600; }
+
+.ptl_lat_badge_notice {
+    display: inline-block;
+    padding: 1px 5px;
+    font-size: 10px;
+    font-weight: 700;
+    background: #e8f3ff;
+    color: #0068c8;
+    border-radius: 3px;
+    flex-shrink: 0;
+    font-style: normal;
+    line-height: 1.4;
+}
+.ptl_lat_lock { font-size: 10px; color: #aaa; flex-shrink: 0; }
+.ptl_lat_new {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: #ff4f4f;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+.ptl_lat_cmt {
+    font-size: 11px;
+    color: #03c75a;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+.ptl_lat_cmt::before { content: '['; }
+.ptl_lat_cmt::after  { content: ']'; }
+
+.ptl_lat_date {
+    font-size: 11px;
+    color: #bbb;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+.ptl_lat_empty {
+    padding: 24px 0;
+    text-align: center;
+    font-size: 13px;
+    color: #aaa;
+}

@@ -1,0 +1,194 @@
+/* =============================================
+   Portal FAQ Skin — ptl_faq_*
+   ============================================= */
+:root {
+    --ptl-primary:    #03c75a;
+    --ptl-primary-dk: #02b050;
+    --ptl-text:       #1a1a1a;
+    --ptl-meta:       #888;
+    --ptl-border:     #e8eaed;
+    --ptl-bg:         #f4f5f7;
+    --ptl-white:      #fff;
+    --ptl-radius:     8px;
+}
+
+#ptl_faq_wrap { max-width: 820px; margin: 0 auto; padding: 20px 16px 40px; font-size: 14px; }
+
+.ptl_faq_himg  { margin-bottom: 16px; }
+.ptl_faq_himg img { max-width: 100%; border-radius: var(--ptl-radius); }
+.ptl_faq_hhtml, .ptl_faq_thtml { margin: 8px 0; }
+
+/* ── 검색 폼 ── */
+.ptl_faq_sch {
+    margin-bottom: 20px;
+}
+.ptl_faq_sch_inner {
+    display: flex;
+    gap: 8px;
+}
+.ptl_faq_sch_input {
+    flex: 1;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--ptl-border);
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color .15s;
+}
+.ptl_faq_sch_input:focus { border-color: var(--ptl-primary); box-shadow: 0 0 0 2px rgba(3,199,90,.12); }
+.ptl_faq_sch_btn {
+    flex-shrink: 0;
+    height: 44px;
+    padding: 0 20px;
+    background: var(--ptl-primary);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s;
+}
+.ptl_faq_sch_btn:hover { background: var(--ptl-primary-dk); }
+
+/* ── 분류 탭 ── */
+.ptl_faq_cate {
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+.ptl_faq_cate ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+}
+.ptl_faq_cate ul li a {
+    display: inline-block;
+    padding: 7px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid var(--ptl-border);
+    border-radius: 20px;
+    background: var(--ptl-white);
+    color: var(--ptl-text);
+    text-decoration: none;
+    transition: all .12s;
+    white-space: nowrap;
+}
+.ptl_faq_cate ul li a:hover { border-color: var(--ptl-primary); color: var(--ptl-primary); }
+.ptl_faq_cate_on { background: var(--ptl-primary) !important; border-color: var(--ptl-primary) !important; color: #fff !important; }
+
+/* ── FAQ 목록 ── */
+.ptl_faq_list_wrap {
+    margin-bottom: 16px;
+}
+.ptl_faq_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 2px solid var(--ptl-primary);
+}
+
+/* Q 버튼 */
+.ptl_faq_item { border-bottom: 1px solid var(--ptl-border); }
+.ptl_faq_q {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 18px 16px;
+    background: var(--ptl-white);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background .12s;
+}
+.ptl_faq_q:hover,
+.ptl_faq_open .ptl_faq_q { background: #f9fff9; }
+.ptl_faq_q_mark {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ptl-primary);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 50%;
+}
+.ptl_faq_q_txt {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ptl-text);
+    line-height: 1.5;
+    word-break: break-word;
+}
+.ptl_faq_open .ptl_faq_q_txt { color: var(--ptl-primary); }
+.ptl_faq_q_icon {
+    flex-shrink: 0;
+    font-size: 13px;
+    color: var(--ptl-meta);
+    transition: transform .2s;
+}
+
+/* A 영역 */
+.ptl_faq_a {
+    display: flex;
+    gap: 12px;
+    padding: 16px 16px 20px;
+    background: #f9fff9;
+    border-top: 1px solid #e4f8ed;
+}
+.ptl_faq_a_mark {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8f9ef;
+    color: var(--ptl-primary);
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 50%;
+}
+.ptl_faq_a_content {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--ptl-text);
+    word-break: break-word;
+}
+.ptl_faq_a_content img { max-width: 100%; height: auto; }
+
+/* ── 빈 목록 ── */
+.ptl_faq_empty {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--ptl-meta);
+}
+.ptl_faq_empty i { font-size: 40px; opacity: .25; display: block; margin-bottom: 14px; }
+.ptl_faq_empty p { font-size: 15px; color: var(--ptl-text); margin: 0 0 12px; }
+
+/* ── 관리자 ── */
+.ptl_faq_admin { margin-top: 16px; text-align: right; }
+.ptl_faq_admin_link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    border: 1px solid var(--ptl-border);
+    border-radius: 6px;
+    background: var(--ptl-white);
+    color: var(--ptl-meta);
+    text-decoration: none;
+    transition: all .12s;
+}
+.ptl_faq_admin_link:hover { border-color: var(--ptl-primary); color: var(--ptl-primary); }

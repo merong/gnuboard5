@@ -1,0 +1,57 @@
+
+.mb_board_wz { background: #fff; border-radius: 14px; overflow: hidden; }
+.mb_list_top { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; }
+.mb_total { font-size: 13px; color: #6b7280; }
+.mb_btn_write { height: 32px; padding: 0 12px; border-radius: 8px; background: var(--portal-primary, #0b1849); color: #fff; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; text-decoration: none; }
+.mb_btn_icon { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #eee; border-radius: 8px; background: #fff; color: #333; }
+
+/* #bo_list ul/li padding:0 !important 리셋을 이깁니다 */
+#bo_list.mb_board_wz .mwz_list {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 16px 8px !important;
+}
+#bo_list.mb_board_wz .mwz_item {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+    margin: 0 !important;
+    padding: 12px 0 !important;
+    border-bottom: 1px solid #f0f0f0;
+    min-width: 0;
+}
+#bo_list.mb_board_wz .mwz_item:last-child { border-bottom: 0; }
+
+.mwz_thumb { flex: 0 0 88px; width: 88px; height: 66px; border-radius: 8px; overflow: hidden; background: #f3f4f6; }
+.mwz_thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mwz_info { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: flex-start; gap: 4px; }
+.mwz_tit { display: flex; align-items: center; gap: 6px; min-width: 0; text-decoration: none; color: #1a1a1a; }
+.mwz_tit_txt {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 15px;
+    font-weight: 700;
+    display: block;
+}
+.mwz_tit .cmt_badge { flex-shrink: 0; margin-left: 0; }
+.mwz_excerpt {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #6b7280;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+.mwz_meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; font-size: 12px; color: #9ca3af; min-width: 0; }
+.mwz_meta .bsk_wz_author { min-width: 0; }
+.mwz_meta .bsk_wz_nick { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mwz_meta > span:last-child { flex-shrink: 0; white-space: nowrap; }
+.mb_empty { padding: 40px 16px; text-align: center; color: #9ca3af; }
+.mb_pg_wrap { padding: 16px 0 24px; text-align: center; }

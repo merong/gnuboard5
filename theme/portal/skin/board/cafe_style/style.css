@@ -1,0 +1,610 @@
+/* ================================================================
+   Naver Cafe Style Board Skin — cafe_style/style.css
+   ================================================================ */
+
+:root {
+    --cs-primary:    var(--portal-primary);
+    --cs-primary-dk: var(--portal-primary-hover);
+    --cs-red:        #ff3a48;
+    --cs-text:       #333;
+    --cs-text-sub:   #888;
+    --cs-border:     #f2f2f2;
+    --cs-border-hd:  #e4e8eb;
+    --cs-bg-head:    #f9f9f9;
+    --cs-bg-hover:   #fafbfc;
+    --cs-bg-notice:  #fffdf5;
+    --cs-radius:     4px;
+}
+
+/* ================================================================
+   테이블 기본 구조
+   ================================================================ */
+#bo_list.cafe_board .tbl_head01.tbl_wrap table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+}
+
+/* 헤더: 상단 포인트 컬러 2px, 하단 구분선 */
+#bo_list.cafe_board .tbl_head01.tbl_wrap thead th {
+    padding: 10px 6px !important;
+    border-top: 2px solid var(--cs-primary) !important;
+    border-bottom: 1px solid var(--cs-border-hd) !important;
+    border-left: none !important;
+    border-right: none !important;
+    background: var(--cs-bg-head) !important;
+    color: #555 !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    letter-spacing: .01em;
+}
+
+/* 바디: 행 구분선 #f2f2f2 */
+#bo_list.cafe_board .tbl_head01.tbl_wrap tbody td {
+    padding: 7px 6px !important;
+    border-top: none !important;
+    border-bottom: 1px solid var(--cs-border) !important;
+    border-left: none !important;
+    border-right: none !important;
+    color: #555 !important;
+    font-size: 13px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+/* 행 호버 */
+#bo_list.cafe_board .tbl_head01.tbl_wrap tbody tr:hover td {
+    background-color: var(--cs-bg-hover) !important;
+}
+
+/* 공지 행 */
+#bo_list.cafe_board .tbl_head01.tbl_wrap tbody tr.bo_notice td {
+    background: var(--cs-bg-notice) !important;
+}
+
+/* even 행 배경 제거 (네이버 카페는 줄무늬 없음) */
+#bo_list.cafe_board .tbl_head01.tbl_wrap tbody tr.even td {
+    background: transparent !important;
+}
+#bo_list.cafe_board .tbl_head01.tbl_wrap tbody tr.bo_notice.even td {
+    background: var(--cs-bg-notice) !important;
+}
+
+/* 빈 게시판 */
+#bo_list.cafe_board .tbl_head01.tbl_wrap td.empty_table {
+    text-align: center !important;
+    padding: 48px 0 !important;
+    color: var(--cs-text-sub) !important;
+    font-size: 13px !important;
+    border-bottom: none !important;
+}
+
+/* ================================================================
+   열 너비 — table-layout:fixed
+   fixed 레이아웃: 명시적 너비가 열 폭을 결정 → overflow:visible td도
+   이웃 열을 밀지 않으므로 겹침 없음. td_subject만 너비 미지정하면
+   나머지 공간 전부를 자동으로 차지함.
+   ================================================================ */
+#bo_list.cafe_board table { table-layout: fixed !important; width: 100% !important; }
+
+#bo_list.cafe_board .td_chk,
+#bo_list.cafe_board .all_chk  { width: 28px !important; }
+#bo_list.cafe_board .td_num2  { width: 60px !important; overflow: hidden !important; }
+/* overflow:visible 필수 — 사이드뷰 팝업이 td 밖으로 표시되어야 함
+   td_name 120px / sv_member max-width:100px → 20px 여유로 겹침 방지 */
+#bo_list.cafe_board .td_name  { width: 120px !important; white-space: nowrap; overflow: visible !important; position: relative; }
+#bo_list.cafe_board .td_num   { width: 50px !important;  white-space: nowrap; overflow: hidden !important; }
+#bo_list.cafe_board .td_datetime { width: 70px !important; white-space: nowrap; overflow: hidden !important; }
+/* td_subject: 너비 미지정 → fixed 레이아웃에서 나머지 공간 전부 점유 */
+
+/* default.css: #bo_list table th { overflow:hidden; text-overflow:ellipsis } 재정의
+   — 헤더 텍스트("조회" 등)가 "조..." 처럼 잘리지 않도록 */
+#bo_list.cafe_board table thead th {
+    overflow: visible !important;
+    text-overflow: clip !important;
+}
+
+/* 좁은 열: 좌우 패딩 0
+   th 패딩 규칙(1,3,2)을 이기려면 .tbl_head01.tbl_wrap thead th.클래스(1,3,3) */
+#bo_list.cafe_board .td_num2,
+#bo_list.cafe_board .td_name,
+#bo_list.cafe_board .td_num,
+#bo_list.cafe_board .td_datetime,
+#bo_list.cafe_board .td_chk,
+#bo_list.cafe_board .all_chk,
+#bo_list.cafe_board .tbl_head01.tbl_wrap thead th.td_num2,
+#bo_list.cafe_board .tbl_head01.tbl_wrap thead th.td_name,
+#bo_list.cafe_board .tbl_head01.tbl_wrap thead th.td_num,
+#bo_list.cafe_board .tbl_head01.tbl_wrap thead th.td_datetime,
+#bo_list.cafe_board .tbl_head01.tbl_wrap thead th.all_chk {
+    padding-left:  0 !important;
+    padding-right: 0 !important;
+}
+
+/* ================================================================
+   공지 뱃지
+   ================================================================ */
+.cafe_notice_badge {
+    display: inline-block;
+    background: #ffeeee;
+    color: var(--cs-red);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+    border: 1px solid #ffcdcd;
+    white-space: nowrap;
+    line-height: 1.5;
+}
+
+/* ================================================================
+   제목 열 — 남은 공간 자동 점유, 말줄임표
+   ================================================================ */
+#bo_list.cafe_board .td_subject {
+    max-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left !important;
+    padding-left: 10px !important;
+    padding-right: 8px !important;
+}
+
+#bo_list.cafe_board .td_subject .bo_cate_link {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1a73e8;
+    background: #eef6fb;
+    border: 1px solid #c8dff9;
+    border-radius: 3px;
+    padding: 1px 5px;
+    margin-right: 4px;
+    vertical-align: middle;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* tbody td { text-align: center !important } 명시도(1,3,2) 를 이기는 재정의 (1,4,2) */
+#bo_list.cafe_board .tbl_head01.tbl_wrap tbody td.td_subject {
+    text-align: left !important;
+}
+
+#bo_list.cafe_board .td_subject .bo_tit {
+    display: inline;
+}
+
+#bo_list.cafe_board .td_subject .bo_tit a {
+    color: var(--cs-text) !important;
+    text-decoration: none !important;
+    font-size: 13px !important;
+    line-height: 1.45;
+}
+
+#bo_list.cafe_board .td_subject .bo_tit a:hover {
+    color: var(--cs-primary) !important;
+    text-decoration: underline !important;
+}
+
+/* ================================================================
+   댓글 수 / 새글 N / 아이콘
+   ================================================================ */
+#bo_list.cafe_board .cnt_cmt {
+    color: var(--cs-red) !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    margin-left: 2px !important;
+}
+
+#bo_list.cafe_board .icon_new {
+    display: inline-block !important;
+    background: #ff4747 !important;
+    color: #fff !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    padding: 1px 4px !important;
+    border-radius: 3px !important;
+    margin-left: 3px !important;
+    vertical-align: middle !important;
+    line-height: 1.4 !important;
+}
+
+/* ================================================================
+   작성자 / 날짜 / 조회수
+   ================================================================ */
+#bo_list.cafe_board .td_name,
+#bo_list.cafe_board .td_datetime,
+#bo_list.cafe_board .td_num {
+    color: var(--cs-text-sub) !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+}
+
+/* tbody td.text-align:center(1,3,2)를 이기는 좌정렬 (1,4,2) */
+#bo_list.cafe_board .tbl_head01.tbl_wrap tbody td.td_name {
+    text-align: left !important;
+}
+
+/* 작성자 텍스트 클리핑은 default.css의 .sv_member { max-width:100px; overflow:hidden } 이 담당
+   (sv_member 는 Gnuboard PHP/JS가 sv_use 내부에 자동 생성)
+   — 별도 inner span 불필요, td(overflow:visible)는 사이드뷰 팝업 노출용으로만 사용 */
+
+/* ================================================================
+   카테고리 탭
+   ================================================================ */
+#bo_list.cafe_board #bo_cate { margin-bottom: 10px; }
+#bo_list.cafe_board #bo_cate_ul {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+#bo_list.cafe_board #bo_cate_ul li {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+#bo_list.cafe_board #bo_cate_ul li a {
+    display: inline-block;
+    padding: 4px 13px;
+    border: 1px solid var(--cs-border-hd);
+    border-radius: 14px;
+    font-size: 12px;
+    color: #555;
+    text-decoration: none;
+    transition: background 0.1s, color 0.1s, border-color 0.1s;
+}
+#bo_list.cafe_board #bo_cate_ul li a:hover,
+#bo_list.cafe_board #bo_cate_ul li.on a {
+    background: var(--cs-primary);
+    border-color: var(--cs-primary);
+    color: #fff;
+}
+
+/* ================================================================
+   상단 버튼 영역
+   ================================================================ */
+#bo_list.cafe_board #bo_btn_top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+#bo_list.cafe_board #bo_list_total {
+    font-size: 12px;
+    color: var(--cs-text-sub);
+}
+#bo_list.cafe_board .btn_bo_user {
+    display: flex !important;
+    list-style: none !important;
+    gap: 4px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+#bo_list.cafe_board .btn_bo_user li {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+}
+#bo_list.cafe_board .btn_bo_user .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    padding: 0 10px;
+    font-size: 12px;
+    border-radius: var(--cs-radius);
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid #dde1e5;
+    background: #f7f8f9;
+    color: #555;
+    transition: background 0.1s;
+}
+#bo_list.cafe_board .btn_bo_user .btn:hover { background: #eef0f2; }
+#bo_list.cafe_board .btn_bo_user .btn_b01 {
+    background: var(--cs-primary);
+    border-color: var(--cs-primary);
+    color: #fff !important;
+}
+#bo_list.cafe_board .btn_bo_user .btn_b01:hover {
+    background: var(--cs-primary-dk);
+    border-color: var(--cs-primary-dk);
+}
+
+/* 점 세개 버튼 — 관리자 전용, 미니멀 회색 아이콘 버튼 */
+#bo_list.cafe_board .btn_more_opt {
+    width: 30px !important;
+    padding: 0 !important;
+    background: #f0f0f0 !important;
+    border-color: #dde1e5 !important;
+    color: #666 !important;
+    font-size: 14px !important;
+}
+#bo_list.cafe_board .btn_more_opt:hover {
+    background: #e0e0e0 !important;
+    color: #333 !important;
+}
+
+/* 관리자 옵션 드롭다운 — 초기 숨김 (JS toggle로만 노출) */
+#bo_list.cafe_board .more_opt {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 2px;
+    background: #fff;
+    border: 1px solid #dde1e5;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+    min-width: 110px;
+    z-index: 300;
+    list-style: none !important;
+    padding: 4px 0 !important;
+    margin-left: 0 !important;
+}
+#bo_list.cafe_board .more_opt li {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+#bo_list.cafe_board .more_opt button {
+    display: block;
+    width: 100%;
+    padding: 8px 14px;
+    font-size: 13px;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    white-space: nowrap;
+    transition: background 0.1s;
+}
+#bo_list.cafe_board .more_opt button:hover { background: #f5f5f5; }
+
+/* ================================================================
+   페이지
+   ================================================================ */
+#bo_list.cafe_board .pg_wrap {
+    text-align: center;
+    margin: 18px 0 10px;
+}
+#bo_list.cafe_board .pg_wrap .pg { display: inline-block; }
+#bo_list.cafe_board .pg a,
+#bo_list.cafe_board .pg strong {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 6px;
+    font-size: 13px;
+    border-radius: var(--cs-radius);
+    text-decoration: none;
+    color: #555;
+    border: 1px solid transparent;
+    transition: all 0.1s;
+    margin: 0 1px;
+}
+#bo_list.cafe_board .pg strong {
+    background: var(--cs-primary);
+    color: #fff !important;
+    border-color: var(--cs-primary);
+    font-weight: 700;
+}
+#bo_list.cafe_board .pg a:hover {
+    background: #f2f2f2;
+    border-color: var(--cs-border-hd);
+}
+
+/* ================================================================
+   상단 검색 바
+   ================================================================ */
+#bo_list.cafe_board .cafe_sch_top {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+}
+#bo_list.cafe_board .cafe_sch_form {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 셀렉트박스 */
+#bo_list.cafe_board .cafe_sch_select {
+    height: 32px;
+    padding: 0 8px;
+    border: 1px solid #d0d5da;
+    border-radius: var(--cs-radius);
+    font-size: 12px;
+    color: #444;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E") no-repeat right 8px center;
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 26px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+#bo_list.cafe_board .cafe_sch_select:focus {
+    outline: none;
+    border-color: var(--cs-primary);
+}
+
+#bo_list.cafe_board .cafe_sch_input {
+    height: 32px;
+    width: 180px;
+    border: 1px solid #d0d5da;
+    border-radius: var(--cs-radius);
+    padding: 0 10px;
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+    color: var(--cs-text);
+    transition: border-color 0.15s;
+}
+#bo_list.cafe_board .cafe_sch_input:focus { border-color: var(--cs-primary); }
+
+#bo_list.cafe_board .cafe_btn_sch {
+    height: 32px;
+    padding: 0 12px;
+    background: var(--cs-primary);
+    border: 1px solid var(--cs-primary);
+    color: #fff;
+    border-radius: var(--cs-radius);
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.1s;
+}
+#bo_list.cafe_board .cafe_btn_sch:hover {
+    background: var(--cs-primary-dk);
+    border-color: var(--cs-primary-dk);
+}
+
+/* ================================================================
+   하단 글쓰기 버튼
+   ================================================================ */
+#bo_list.cafe_board .cafe_bottom {
+    display: flex;
+    justify-content: flex-end;
+    margin: 12px 0 20px;
+}
+#bo_list.cafe_board .cafe_btn_write_top {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 30px;
+    padding: 0 14px;
+    background: var(--cs-primary);
+    border: 1px solid var(--cs-primary);
+    color: #fff !important;
+    border-radius: var(--cs-radius);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none !important;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+#bo_list.cafe_board .cafe_btn_write_top:hover {
+    background: var(--cs-primary-dk);
+    border-color: var(--cs-primary-dk);
+}
+
+#bo_list.cafe_board .cafe_btn_write {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 34px;
+    padding: 0 18px;
+    background: var(--cs-primary);
+    border: 1px solid var(--cs-primary);
+    color: #fff !important;
+    border-radius: var(--cs-radius);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none !important;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+#bo_list.cafe_board .cafe_btn_write:hover {
+    background: var(--cs-primary-dk);
+    border-color: var(--cs-primary-dk);
+}
+
+/* ================================================================
+   체크박스
+   ================================================================ */
+#bo_list.cafe_board .chk_box label { cursor: pointer; }
+#bo_list.cafe_board .chk_box input[type="checkbox"] { cursor: pointer; }
+
+/* ================================================================
+   임시저장 팝업 (#autosave_pop) — 초기 숨김 필수
+   jQuery autosave.js 의 .show() / .hide() 가 인라인으로 제어함
+   ================================================================ */
+#autosave_wrapper { position: relative; }
+
+#autosave_pop {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: 200;
+    min-width: 280px;
+    background: #fff;
+    border: 1px solid #dde1e5;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .12);
+    padding: 14px 16px;
+}
+
+#autosave_pop strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#autosave_pop ul {
+    list-style: none;
+    margin: 0 0 10px;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#autosave_pop ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #f5f5f5;
+    gap: 8px;
+    font-size: 13px;
+}
+#autosave_pop ul li:last-child { border-bottom: none; }
+
+#autosave_pop ul li a.autosave_load {
+    color: #333;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+}
+#autosave_pop ul li a.autosave_load:hover { color: var(--cs-primary); }
+
+#autosave_pop ul li span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    font-size: 11px;
+    color: #aaa;
+}
+
+#autosave_pop ul li button.autosave_del {
+    font-size: 11px;
+    padding: 1px 6px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background: #f7f7f7;
+    cursor: pointer;
+    color: #888;
+    transition: background 0.1s;
+}
+#autosave_pop ul li button.autosave_del:hover {
+    background: #fee;
+    border-color: #f5a0a0;
+    color: var(--cs-red);
+}

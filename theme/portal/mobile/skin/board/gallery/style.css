@@ -1,0 +1,352 @@
+/* =============================================
+   Mobile Gallery Skin — style.css
+   mg_* 클래스 네임스페이스
+   ============================================= */
+
+:root {
+    --mg-primary:    var(--portal-primary);
+    --mg-primary-dk: var(--portal-primary-hover);
+    --mg-text:       #1a1a1a;
+    --mg-meta:       #888;
+    --mg-border:     #efefef;
+    --mg-bg:         #f4f5f7;
+    --mg-white:      #fff;
+    --mg-radius:     8px;
+}
+
+.mg_board {
+    max-width: 100%;
+    background: var(--mg-bg);
+    padding-bottom: 80px;
+}
+
+/* ── 카테고리 탭 ── */
+.mg_cate_nav { overflow: visible; }
+.mg_cate_nav #bo_cate_ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 12px;
+    background: var(--mg-white);
+    border-bottom: 1px solid var(--mg-border);
+}
+.mg_cate_nav #bo_cate_ul li a,
+.mg_cate_nav #bo_cate_ul li span {
+    display: inline-block;
+    padding: 5px 12px;
+    font-size: 13px;
+    border-radius: 20px;
+    border: 1px solid var(--mg-border);
+    background: var(--mg-white);
+    color: var(--mg-text);
+    white-space: nowrap;
+}
+.mg_cate_nav #bo_cate_ul li a:hover,
+.mg_cate_nav #bo_cate_ul li.on a { background: var(--mg-primary); color: #fff; border-color: var(--mg-primary); }
+
+/* ── 상단 바 ── */
+.mg_list_top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: var(--mg-white);
+    border-bottom: 1px solid var(--mg-border);
+}
+.mg_total { font-size: 13px; color: var(--mg-meta); }
+.mg_total strong { color: var(--mg-text); font-weight: 700; }
+.mg_top_right { display: flex; align-items: center; gap: 6px; }
+.mg_btn_icon {
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 8px;
+    border: 1px solid var(--mg-border);
+    background: var(--mg-white);
+    color: var(--mg-meta);
+    font-size: 14px;
+}
+.mg_btn_icon:hover { color: var(--mg-primary); border-color: var(--mg-primary); }
+
+/* ── 관리 드롭다운 ── */
+.mg_more_wrap { position: relative; }
+.mg_more_menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    z-index: 300;
+    min-width: 130px;
+    background: var(--mg-white);
+    border: 1px solid var(--mg-border);
+    border-radius: var(--mg-radius);
+    box-shadow: 0 4px 16px rgba(0,0,0,.12);
+    padding: 4px 0;
+}
+.mg_more_menu li button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 16px;
+    background: none;
+    border: none;
+    font-size: 13px;
+    color: var(--mg-text);
+    cursor: pointer;
+    text-align: left;
+}
+.mg_more_menu li button:hover { background: #f5f5f5; color: var(--mg-primary); }
+
+/* ── 검색바 ── */
+.mg_search_bar {
+    padding: 10px 12px;
+    background: var(--mg-white);
+    border-bottom: 2px solid var(--mg-border);
+}
+.mg_sch_inner { display: flex; gap: 6px; align-items: center; }
+.mg_sch_select_wrap { position: relative; flex-shrink: 0; }
+.mg_sch_select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 8px 28px 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 13px;
+    background: var(--mg-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E") no-repeat right 8px center;
+    cursor: pointer;
+}
+.mg_sch_input {
+    flex: 1;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+}
+.mg_sch_input:focus { border-color: var(--mg-primary); }
+.mg_sch_btn {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--mg-primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.mg_sch_btn:hover { background: var(--mg-primary-dk); }
+
+/* ── 갤러리 그리드 ── */
+.mg_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 12px;
+    list-style: none;
+    margin: 0;
+    background: var(--mg-bg);
+}
+
+.mg_empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px 0;
+    font-size: 14px;
+    color: var(--mg-meta);
+    background: var(--mg-white);
+    border: 1px solid var(--mg-border);
+    border-radius: var(--mg-radius);
+}
+
+/* ── 갤러리 아이템 ──
+   overflow:hidden 제거 → sv_wrap 드롭다운이 카드 밖으로 표시 가능 */
+.mg_item {
+    position: relative;
+    background: var(--mg-white);
+    border: 1px solid var(--mg-border);
+    border-radius: var(--mg-radius);
+    display: flex;
+    flex-direction: column;
+}
+.mg_item_notice { border-color: var(--mg-primary); }
+/* sv_zfix: 사이드뷰 열린 카드를 인접 카드 위로 올림 */
+li.mg_item.sv_zfix { z-index: 50 !important; }
+
+/* ── 체크박스 ── */
+.mg_chk {
+    position: absolute;
+    top: 6px; left: 6px;
+    z-index: 3;
+}
+.mg_chk label { display: block; }
+
+/* ── 썸네일 ── */
+/* overflow:hidden을 링크로 내려 썸네일 상단 모서리 클리핑 처리 */
+.mg_thumb_link {
+    display: block; text-decoration: none;
+    border-radius: 8px 8px 0 0; overflow: hidden;
+}
+.mg_thumb {
+    display: block;
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #f2f2f2;
+}
+.mg_thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.25s;
+}
+.mg_thumb_link:active .mg_thumb img { transform: scale(1.03); }
+
+/* 공지 커버 / 이미지 없음 */
+.mg_notice_cover {
+    position: absolute; inset: 0;
+    background: #f8f9fa;
+    display: flex; align-items: center; justify-content: center;
+}
+.mg_no_img {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: #ccc; font-size: 32px;
+}
+
+/* ── 뱃지 ── */
+.mg_badge {
+    display: inline-block;
+    padding: 2px 5px;
+    font-size: 10px; font-weight: 700;
+    border-radius: 3px; line-height: 1.4;
+    white-space: nowrap; vertical-align: middle;
+}
+.mg_badge_notice { background: var(--mg-primary); color: #fff; }
+.mg_badge_cate   { background: #e8f9ef; color: var(--mg-primary); border: 1px solid #c3edda; }
+.mg_badge_new {
+    position: absolute; top: 5px; right: 5px;
+    background: #ff4f4f; color: #fff;
+    font-size: 10px; font-weight: 700;
+    padding: 1px 5px; border-radius: 3px;
+}
+.mg_badge_lock {
+    position: absolute; bottom: 5px; right: 5px;
+    background: rgba(0,0,0,.45); color: #fff;
+    font-size: 11px; padding: 2px 5px; border-radius: 3px;
+}
+
+/* ── 정보 영역 (<a> 바깥) ── */
+.mg_info {
+    padding: 8px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+/* 제목 링크 */
+.mg_tit_link {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 13px; font-weight: 600;
+    color: var(--mg-text);
+    line-height: 1.45;
+    text-decoration: none;
+    word-break: break-all;
+}
+.mg_tit_link:active { opacity: .8; }
+
+/* 댓글 수 뱃지 */
+.mg_cmt_cnt {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 700;
+    color: var(--mg-primary);
+    background: #e8f9ef;
+    border: 1px solid #c3edda;
+    border-radius: 10px;
+    padding: 1px 4px;
+    margin-left: 2px;
+    line-height: 1.4;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+/* ── 메타 (작성자·날짜) — <a> 바깥 ── */
+.mg_meta {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: auto;
+}
+.mg_meta .sv_use {
+    font-size: 11px;
+    color: var(--mg-meta);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 55%;
+}
+.mg_meta .sv_use::after {
+    content: '·';
+    margin-left: 4px;
+    color: #ccc;
+}
+/* 사이드뷰 드롭다운 보정 */
+.mg_meta .sv_use .sv_wrap { display: inline; }
+.mg_meta .sv_use .sv { overflow: visible; }
+
+.mg_date {
+    font-size: 11px;
+    color: var(--mg-meta);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ── 페이지네이션 ── */
+.mg_pg_wrap { text-align: center; padding: 12px 12px 8px; }
+
+/* ── FAB (글쓰기) ── */
+.mg_fab_wrap {
+    position: fixed;
+    bottom: 24px; right: 20px;
+    z-index: 400;
+}
+.mg_fab {
+    display: flex;
+    align-items: center; justify-content: center;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: var(--mg-primary);
+    color: #fff;
+    font-size: 20px;
+    box-shadow: 0 4px 14px rgba(3,199,90,.45);
+    transition: transform .15s, box-shadow .15s;
+}
+.mg_fab:hover {
+    background: var(--mg-primary-dk);
+    transform: scale(1.08);
+    box-shadow: 0 6px 18px rgba(3,199,90,.55);
+}
+
+/* ── 반응형 ── */
+@media (min-width: 480px) {
+    .mg_grid { gap: 12px; }
+}
+@media (min-width: 768px) {
+    .mg_board { max-width: 720px; margin: 0 auto; }
+    .mg_grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .mg_fab_wrap { bottom: 32px; right: 32px; }
+    .mg_fab { width: 50px; height: 50px; font-size: 18px; }
+}
+
+#bo_list.mg_board .mg_grid {
+    padding: 12px !important;
+    margin: 0 !important;
+    list-style: none !important;
+}
+#bo_list.mg_board .mg_item {
+    margin: 0 !important;
+    padding: 0 !important;
+}

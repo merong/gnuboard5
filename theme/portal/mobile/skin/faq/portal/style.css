@@ -1,0 +1,174 @@
+/* =============================================
+   Mobile Portal FAQ Skin — mptl_faq_*
+   ============================================= */
+:root {
+    --mptl-primary:    #03c75a;
+    --mptl-primary-dk: #02b050;
+    --mptl-text:       #1a1a1a;
+    --mptl-meta:       #888;
+    --mptl-border:     #efefef;
+    --mptl-bg:         #f4f5f7;
+    --mptl-white:      #fff;
+    --mptl-radius:     8px;
+}
+
+#mptl_faq_wrap { background: var(--mptl-bg); min-height: 100vh; font-size: 14px; padding-bottom: 30px; }
+
+.mptl_faq_hhtml, .mptl_faq_thtml { padding: 10px 14px; font-size: 13px; }
+
+/* ── 검색 폼 ── */
+.mptl_faq_sch {
+    padding: 10px 12px;
+    background: var(--mptl-white);
+    border-bottom: 1px solid var(--mptl-border);
+}
+.mptl_faq_sch_inner { display: flex; gap: 8px; }
+.mptl_faq_sch_input {
+    flex: 1;
+    height: 44px;
+    padding: 0 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    -webkit-appearance: none;
+}
+.mptl_faq_sch_input:focus { border-color: var(--mptl-primary); }
+.mptl_faq_sch_btn {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--mptl-primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* ── 분류 탭 ── */
+.mptl_faq_cate {
+    background: var(--mptl-white);
+    border-bottom: 2px solid var(--mptl-border);
+    overflow-x: auto;
+}
+.mptl_faq_cate ul {
+    display: flex;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 10px 12px;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+}
+.mptl_faq_cate ul li a {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid var(--mptl-border);
+    border-radius: 20px;
+    background: var(--mptl-white);
+    color: var(--mptl-text);
+    text-decoration: none;
+    white-space: nowrap;
+}
+.mptl_faq_cate_on { background: var(--mptl-primary) !important; border-color: var(--mptl-primary) !important; color: #fff !important; }
+
+/* ── FAQ 목록 ── */
+.mptl_faq_list_wrap { margin-top: 8px; }
+.mptl_faq_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 2px solid var(--mptl-primary);
+    background: var(--mptl-white);
+}
+.mptl_faq_item { border-bottom: 1px solid var(--mptl-border); }
+
+/* Q 버튼 */
+.mptl_faq_q {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 14px;
+    background: var(--mptl-white);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    min-height: 56px;
+}
+.mptl_faq_open .mptl_faq_q { background: #f9fff9; }
+.mptl_faq_q_mark {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--mptl-primary);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 50%;
+}
+.mptl_faq_q_txt {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--mptl-text);
+    line-height: 1.5;
+    word-break: break-word;
+    text-align: left;
+}
+.mptl_faq_open .mptl_faq_q_txt { color: var(--mptl-primary); }
+.mptl_faq_q_icon {
+    flex-shrink: 0;
+    font-size: 13px;
+    color: var(--mptl-meta);
+    transition: transform .2s;
+}
+
+/* A 영역 */
+.mptl_faq_a {
+    display: flex;
+    gap: 10px;
+    padding: 14px 14px 18px;
+    background: #f9fff9;
+    border-top: 1px solid #e4f8ed;
+}
+.mptl_faq_a_mark {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8f9ef;
+    color: var(--mptl-primary);
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 50%;
+}
+.mptl_faq_a_content {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--mptl-text);
+    word-break: break-word;
+}
+.mptl_faq_a_content img { max-width: 100%; height: auto; }
+
+/* ── 빈 목록 ── */
+.mptl_faq_empty {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--mptl-meta);
+    background: var(--mptl-white);
+}
+.mptl_faq_empty i { font-size: 36px; opacity: .2; display: block; margin-bottom: 12px; }
+.mptl_faq_empty p { font-size: 14px; color: var(--mptl-text); margin: 0; }
