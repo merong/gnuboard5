@@ -106,6 +106,13 @@
 .bsk_video_preview { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
 .bsk_video_preview img { width: 120px; height: 68px; object-fit: cover; border-radius: 8px; background: #121826; }
 .bsk_video_preview span { font-size: 12px; color: #667085; word-break: break-all; }
+.bsk_video_preview[hidden],
+.bsk_video_prog[hidden],
+.bsk_video_preview img[hidden],
+.bsk_video_preview img:not([src]),
+.bsk_video_preview img[src=""] { display: none !important; }
+.bsk_video_write_page .bsk_write_row_content,
+.bsk_video_write_page .bsk_write_file_row { display: none !important; }
 
 @media (max-width: 768px) {
     .bsk_video_wrap { overflow-x: hidden; }
@@ -181,3 +188,5 @@
 }
 
 .bsk_video_sf_only .bsk_viewmode { display: none !important; }
+
+.bsk_video_sf_only .bsk_pager { display: none; }

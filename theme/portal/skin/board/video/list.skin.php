@@ -1,15 +1,52 @@
 <?php
 if (!defined('_GNUBOARD_')) exit;
 include_once(__DIR__ . '/_lib.php');
+if (isset($_REQUEST['sf_ajax'])) {
+    $sf_mode = (string) $_REQUEST['sf_ajax'];
+    if ($sf_mode === '1' || $sf_mode === 'list') {
+        include_once __DIR__ . '/ajax.list.php';
+        exit;
+    }
+    if ($sf_mode === 'good') {
+        include_once __DIR__ . '/ajax.good.php';
+        exit;
+    }
+    if ($sf_mode === 'comment') {
+        include_once __DIR__ . '/ajax.comment.php';
+        exit;
+    }
+}
 $video_skin_url = moidam_video_skin_url();
 add_stylesheet('<link rel="stylesheet" href="'.$video_skin_url.'/style.css?v='.filemtime(__DIR__.'/style.css').'">', 0);
 
 $list_count = count($list);
 $cols = max(2, (int) ($bo_gallery_cols ?: 3));
-$sf_items = array();
 $sf_customer = moidam_video_customer_code();
+$sf_items = moidam_video_list_items($list, $bo_table);
 $is_mobile_skin = defined('G5_IS_MOBILE') && G5_IS_MOBILE;
 $can_classic = !$is_mobile_skin || $is_admin || $is_auth;
+$sf_ajax_q = array('bo_table' => $bo_table, 'sf_ajax' => '1');
+if (!empty($sca)) $sf_ajax_q['sca'] = $sca;
+if (!empty($sfl)) $sf_ajax_q['sfl'] = $sfl;
+if (!empty($stx)) $sf_ajax_q['stx'] = $stx;
+if (!empty($sst)) $sf_ajax_q['sst'] = $sst;
+if (!empty($sod)) $sf_ajax_q['sod'] = $sod;
+if ($is_mobile_skin) $sf_ajax_q['device'] = 'mobile';
+$sf_act_q = array('bo_table' => $bo_table);
+if ($is_mobile_skin) {
+    $sf_act_q['device'] = 'mobile';
+}
+$sf_login_back = G5_BBS_URL.'/board.php?'.http_build_query(array_merge(array('bo_table' => $bo_table), $is_mobile_skin ? array('device' => 'mobile') : array()));
+$sf_meta = array(
+    'ajaxUrl' => G5_BBS_URL.'/board.php?'.http_build_query($sf_ajax_q),
+    'goodUrl' => G5_BBS_URL.'/board.php?'.http_build_query(array_merge($sf_act_q, array('sf_ajax' => 'good'))),
+    'commentUrl' => G5_BBS_URL.'/board.php?'.http_build_query(array_merge($sf_act_q, array('sf_ajax' => 'comment'))),
+    'loginUrl' => G5_BBS_URL.'/login.php?url='.urlencode($sf_login_back),
+    'isMember' => !empty($is_member) ? 1 : 0,
+    'page' => isset($page) ? (int) $page : 1,
+    'totalPage' => isset($total_page) ? (int) $total_page : 1,
+    'totalCount' => isset($total_count) ? (int) $total_count : $list_count,
+);
 ?>
 <div id="bsk_gall_wrap" class="bsk_video_wrap<?php echo $can_classic ? '' : ' bsk_video_sf_only'; ?>">
 
@@ -75,19 +112,6 @@ $can_classic = !$is_mobile_skin || $is_admin || $is_auth;
     $thumb_src = moidam_video_thumb_src($row['thumb']);
     $ready = $row['ready'] ? '1' : '0';
     $dur = moidam_video_duration($sec);
-    $sf_items[] = array(
-        'wr_id' => (int) $item['wr_id'],
-        'subject' => get_text(strip_tags(isset($item['wr_subject']) ? $item['wr_subject'] : $item['subject'])),
-        'href' => $href,
-        'uid' => $uid,
-        'duration' => (int) $sec,
-        'thumb' => $thumb_src,
-        'ready' => $row['ready'] ? 1 : 0,
-        'customer' => $sf_customer,
-        'name' => get_text(strip_tags(isset($item['wr_name']) ? $item['wr_name'] : $item['name'])),
-        'datetime' => isset($item['datetime2']) ? $item['datetime2'] : (isset($item['datetime']) ? $item['datetime'] : ''),
-        'hit' => (int) (isset($item['wr_hit']) ? $item['wr_hit'] : 0),
-    );
 ?>
 <li class="bsk_gall_item bsk_video_item<?php echo ($wr_id == $item['wr_id']) ? ' bsk_current_item' : '' ?>">
     <?php if ($is_checkbox) { ?>
@@ -137,6 +161,7 @@ $can_classic = !$is_mobile_skin || $is_admin || $is_auth;
 </div>
 <div id="moidam-shortform-root"<?php echo $is_mobile_skin ? '' : ' hidden'; ?>></div>
 <script type="application/json" id="moidam-shortform-data"><?php echo json_encode($sf_items, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP); ?></script>
+<script type="application/json" id="moidam-shortform-meta"><?php echo json_encode($sf_meta, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP); ?></script>
 <?php
 $sf_css = __DIR__ . '/shortform/dist/moidam-shortform.css';
 $sf_js = __DIR__ . '/shortform/dist/moidam-shortform.js';
@@ -194,6 +219,7 @@ jQuery(function($) {
         }
         $('.bsk_viewmode_btn').removeClass('is-on').filter('[data-mode="' + mode + '"]').addClass('is-on');
         if (classic) classic.style.display = isShort ? 'none' : '';
+        $('.bsk_pager').toggle(!isShort);
         if (root) {
             if (isShort) root.removeAttribute('hidden');
             else root.setAttribute('hidden', 'hidden');
@@ -202,7 +228,20 @@ jQuery(function($) {
             var dataEl = document.getElementById('moidam-shortform-data');
             var items = [];
             try { items = JSON.parse((dataEl && dataEl.textContent) || '[]'); } catch (err) { items = []; }
-            window.MoidamShortform.mount(root, { items: items, startIndex: 0 });
+            var metaEl = document.getElementById('moidam-shortform-meta');
+            var meta = {};
+            try { meta = JSON.parse((metaEl && metaEl.textContent) || '{}') || {}; } catch (err) { meta = {}; }
+            window.MoidamShortform.mount(root, {
+                items: items,
+                startIndex: 0,
+                ajaxUrl: meta.ajaxUrl || '',
+                goodUrl: meta.goodUrl || '',
+                commentUrl: meta.commentUrl || '',
+                loginUrl: meta.loginUrl || '',
+                isMember: !!meta.isMember,
+                page: meta.page || 1,
+                totalPage: meta.totalPage || 1
+            });
             mounted = true;
         }
         try { sessionStorage.setItem(KEY, isShort ? 'short' : 'list'); } catch (err) {}

@@ -115,3 +115,90 @@ function moidam_video_skin_url()
     return G5_THEME_URL.'/skin/board/video';
 }
 
+function moidam_video_list_items($list, $bo_table)
+{
+    $items = array();
+    $customer = moidam_video_customer_code();
+    if (!is_array($list)) {
+        return $items;
+    }
+    foreach ($list as $item) {
+        if (!is_array($item) || empty($item['wr_id'])) {
+            continue;
+        }
+        $row = moidam_video_row($bo_table, $item['wr_id']);
+        $items[] = array(
+            'wr_id' => (int) $item['wr_id'],
+            'subject' => get_text(strip_tags(isset($item['wr_subject']) ? $item['wr_subject'] : (isset($item['subject']) ? $item['subject'] : ''))),
+            'href' => isset($item['href']) ? $item['href'] : '',
+            'uid' => isset($row['uid']) ? $row['uid'] : '',
+            'duration' => isset($row['duration']) ? (int) $row['duration'] : 0,
+            'thumb' => moidam_video_thumb_src(isset($row['thumb']) ? $row['thumb'] : ''),
+            'ready' => !empty($row['ready']) ? 1 : 0,
+            'customer' => $customer,
+            'name' => get_text(strip_tags(isset($item['wr_name']) ? $item['wr_name'] : (isset($item['name']) ? $item['name'] : ''))),
+            'datetime' => isset($item['datetime2']) ? $item['datetime2'] : (isset($item['datetime']) ? $item['datetime'] : ''),
+            'hit' => (int) (isset($item['wr_hit']) ? $item['wr_hit'] : 0),
+            'good' => (int) (isset($item['wr_good']) ? $item['wr_good'] : 0),
+            'comment' => (int) (isset($item['wr_comment']) ? $item['wr_comment'] : 0),
+            'liked' => 0,
+        );
+    }
+    $liked = moidam_video_liked_map($bo_table, array_column($items, 'wr_id'));
+    foreach ($items as $i => $it) {
+        $items[$i]['liked'] = !empty($liked[(int) $it['wr_id']]) ? 1 : 0;
+    }
+    return $items;
+}
+
+function moidam_video_liked_map($bo_table, $wr_ids)
+{
+    global $g5, $member;
+    $out = array();
+    if (empty($member['mb_id']) || !is_array($wr_ids) || !$wr_ids) {
+        return $out;
+    }
+    $ids = array();
+    foreach ($wr_ids as $id) {
+        $id = (int) $id;
+        if ($id > 0) {
+            $ids[] = $id;
+        }
+    }
+    if (!$ids) {
+        return $out;
+    }
+    $mb = addslashes($member['mb_id']);
+    $bo = addslashes($bo_table);
+    $sql = " select wr_id from {$g5['board_good_table']}
+              where bo_table = '{$bo}'
+                and mb_id = '{$mb}'
+                and bg_flag = 'good'
+                and wr_id in (".implode(',', $ids).") ";
+    $result = sql_query($sql);
+    while ($row = sql_fetch_array($result)) {
+        $out[(int) $row['wr_id']] = 1;
+    }
+    return $out;
+}
+
+function moidam_video_login_url($bo_table)
+{
+    $q = array('bo_table' => $bo_table);
+    if (defined('G5_IS_MOBILE') && G5_IS_MOBILE) {
+        $q['device'] = 'mobile';
+    }
+    return G5_BBS_URL.'/login.php?url='.urlencode(G5_BBS_URL.'/board.php?'.http_build_query($q));
+}
+
+function moidam_video_ajax_json($payload)
+{
+    while (ob_get_level() > 0) {
+        ob_end_clean();
+    }
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: no-store, no-cache, must-revalidate');
+    echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP);
+    exit;
+}
+
