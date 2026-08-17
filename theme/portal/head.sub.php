@@ -58,6 +58,9 @@ if (defined('G5_IS_ADMIN')) {
         echo '<link rel="stylesheet" href="'.run_replace('head_css_url', G5_ADMIN_URL.'/css/admin.css?ver='.$_adm_ver, G5_URL).'">'.PHP_EOL;
 } else {
     echo '<link rel="stylesheet" href="'.run_replace('head_css_url', G5_CSS_URL.'/default.css?ver='.G5_CSS_VER, G5_URL).'">'.PHP_EOL;
+    if (defined('MOIDAM_USE_SWIPER') && MOIDAM_USE_SWIPER) {
+        echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@14.1.0/swiper-bundle.min.css">'.PHP_EOL;
+    }
 }
 
 // ── 포털 테마 CSS (직접 echo) ──

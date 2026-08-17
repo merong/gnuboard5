@@ -92,6 +92,13 @@ $__swipe_js = G5_THEME_PATH.'/js/tabs-swipe.js';
 if (is_file($__swipe_js)) {
     echo '<script src="'.G5_THEME_URL.'/js/tabs-swipe.js?v='.filemtime($__swipe_js).'"></script>'.PHP_EOL;
 }
+if (defined('MOIDAM_USE_SWIPER') && MOIDAM_USE_SWIPER) {
+    echo '<script src="https://cdn.jsdelivr.net/npm/swiper@14.1.0/swiper-bundle.min.js"></script>'.PHP_EOL;
+    $__moidam_swiper_js = G5_THEME_PATH.'/js/moidam-swiper.js';
+    if (is_file($__moidam_swiper_js)) {
+        echo '<script src="'.G5_THEME_URL.'/js/moidam-swiper.js?v='.filemtime($__moidam_swiper_js).'"></script>'.PHP_EOL;
+    }
+}
 ?>
 
 <?php

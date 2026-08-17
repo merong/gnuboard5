@@ -504,6 +504,9 @@ html[data-theme="dark"] #portal_footer { background: #14110e; }
     font-weight: 800;
     letter-spacing: -0.03em;
     color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .moidam_ql_title::before {
     content: "";
@@ -582,6 +585,9 @@ html[data-theme="dark"] .moidam_ql_title { color: #f3eee6; }
     font-weight: 800;
     letter-spacing: -0.02em;
     color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .moidam_ql_body em {
     font-style: normal;
@@ -800,11 +806,9 @@ html[data-theme="dark"] .moidam_ql_body strong { color: #f1f5f9; }
     .moidam_stat { padding: 6px 4px; }
 }
 
-/* quicklinks 5-up after humor removed from QL */
-.moidam_quicklinks { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-@media (max-width: 1100px) {
-    .moidam_quicklinks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
+/* 어디로 가볼까요: PC 3열 2행 */
+.moidam_quicklinks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.moidam_ql_card { overflow: hidden; min-width: 0; }
 @media (max-width: 480px) {
     .moidam_quicklinks { grid-template-columns: 1fr 1fr; }
 }
@@ -1782,4 +1786,146 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
         overflow-x: auto;
         flex-wrap: nowrap;
     }
+}
+
+/* 메인 동영상 최신 위젯 */
+.moidam_video_section .moidam_section_head {
+    padding: 0 0 12px;
+    margin: 0 0 16px;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+.moidam_video_section h3 {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.moidam_video_section h3 i { color: var(--moidam-accent); margin-right: 2px; }
+.moidam_video_latest .moidam_vl_thumb,
+.moidam-swiper-video .moidam_vl_thumb {
+    aspect-ratio: 16 / 9;
+    background: #121826;
+    border-radius: 8px;
+}
+.moidam_video_latest .moidam_vl_empty,
+.moidam-swiper-video .moidam_vl_empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #98a2b3;
+    font-size: 28px;
+}
+.moidam_video_latest .moidam_vl_play,
+.moidam-swiper-video .moidam_vl_play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 36px;
+    height: 36px;
+    margin: -18px 0 0 -18px;
+    border-radius: 50%;
+    background: rgba(8, 14, 36, 0.62);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    pointer-events: none;
+}
+.moidam_video_latest .moidam_vl_dur,
+.moidam-swiper-video .moidam_vl_dur,
+.moidam_video_latest .moidam_vl_proc,
+.moidam-swiper-video .moidam_vl_proc {
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    padding: 1px 6px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 800;
+    color: #fff;
+    background: rgba(8, 14, 36, 0.78);
+}
+.moidam_video_latest .moidam_vl_proc,
+.moidam-swiper-video .moidam_vl_proc { background: #f0a04b; color: #1a1208; }
+@media (max-width: 768px) {
+    .moidam-swiper { padding: 0; }
+}
+/* 메인 위젯 Swiper — 공식 레이아웃 + 모담 카드 */
+.gallery_section .swiper,
+.moidam-swiper.swiper,
+.moidam-swiper {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    list-style: none;
+    z-index: 1;
+    min-width: 0;
+    box-sizing: border-box;
+}
+.gallery_section .swiper-wrapper,
+.moidam-swiper .swiper-wrapper {
+    display: flex;
+    box-sizing: content-box;
+    width: 100%;
+    height: auto;
+    transition-property: transform;
+}
+.gallery_section .swiper-slide,
+.moidam-swiper .swiper-slide {
+    flex-shrink: 0;
+    display: block;
+    height: auto;
+    min-width: 0;
+    position: relative;
+}
+.moidam-swiper .pl_gal_link {
+    display: block;
+    min-width: 0;
+}
+.moidam-swiper .pl_gal_thumb {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.moidam-swiper .pl_gal_thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.moidam-swiper .pl_gal_tit {
+    display: block;
+    min-width: 0;
+    margin-top: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.moidam-swiper-video .moidam_vl_thumb,
+.moidam-swiper-video .pl_gal_thumb,
+.moidam_video_latest .moidam_vl_thumb { aspect-ratio: 16 / 9; }
+.gallery_section .swiper-button-prev,
+.gallery_section .swiper-button-next,
+.moidam-swiper .swiper-button-prev,
+.moidam-swiper .swiper-button-next { display: none; }
+.gallery_section .swiper-pagination,
+.moidam-swiper.swiper-horizontal > .swiper-pagination-bullets,
+.moidam-swiper .swiper-pagination {
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin-top: 12px;
+    text-align: center;
+}
+.moidam-swiper .swiper-pagination-bullet { background: #94a3b8; opacity: 1; }
+.moidam-swiper .swiper-pagination-bullet-active { background: var(--moidam-accent, #f0a04b); }
+@media (max-width: 560px) {
+    .moidam-swiper { padding: 0; }
 }
