@@ -3,6 +3,7 @@ import Hls from 'hls.js';
 import { formatDuration, formatHit, hlsUrl, iframeUrl } from './utils.js';
 import { formatCount, goLogin, postForm } from './api.js';
 import { IconHeart, IconComment, IconMuted, IconSound, IconFullscreen } from './icons.jsx';
+import { enterFs, exitFs, isFsFor, onFsChange } from './fullscreen.js';
 
 function fmtTime(sec) {
   const n = Math.max(0, Math.floor(Number(sec) || 0));
@@ -16,6 +17,7 @@ export default function VideoSlide({
 }) {
   const slideRef = useRef(null);
   const videoRef = useRef(null);
+  const iframeRef = useRef(null);
   const hlsRef = useRef(null);
   const hideRef = useRef(null);
   const seekingRef = useRef(false);
@@ -101,13 +103,24 @@ export default function VideoSlide({
   }, [src, useIframe]);
 
   useEffect(() => {
-    const onFs = () => {
-      const el = slideRef.current;
-      setIsFs(!!(document.fullscreenElement && el && document.fullscreenElement === el));
+    const sync = () => {
+      const video = videoRef.current;
+      setIsFs(isFsFor([slideRef.current, video, iframeRef.current]) || !!(video && video.webkitDisplayingFullscreen));
     };
-    document.addEventListener('fullscreenchange', onFs);
-    return () => document.removeEventListener('fullscreenchange', onFs);
-  }, []);
+    const off = onFsChange(sync);
+    const video = videoRef.current;
+    if (video) {
+      video.addEventListener('webkitbeginfullscreen', sync);
+      video.addEventListener('webkitendfullscreen', sync);
+    }
+    return () => {
+      off();
+      if (video) {
+        video.removeEventListener('webkitbeginfullscreen', sync);
+        video.removeEventListener('webkitendfullscreen', sync);
+      }
+    };
+  }, [useIframe, src]);
 
   const onSlideClick = (e) => {
     if (e.target.closest('a, button, .sf-ctrl')) return;
@@ -139,26 +152,26 @@ export default function VideoSlide({
   };
 
   const onFullscreen = (e) => {
-    e.preventDefault();
     e.stopPropagation();
-    const slide = slideRef.current;
     const video = videoRef.current;
-    const cur = document.fullscreenElement || document.webkitFullscreenElement;
-    const exit = document.exitFullscreen || document.webkitExitFullscreen;
-    if (cur && exit) {
-      Promise.resolve(exit.call(document)).catch(() => {});
+    const iframe = iframeRef.current;
+    const slide = slideRef.current;
+    const overlay = slide && slide.closest('.sf-overlay');
+    if (isFsFor([slide, video, iframe, overlay]) || (video && video.webkitDisplayingFullscreen)) {
+      if (video && video.webkitDisplayingFullscreen && video.webkitExitFullscreen) {
+        video.webkitExitFullscreen();
+      } else {
+        exitFs();
+      }
       bumpCtrl();
       return;
     }
-    const tryFs = (el) => {
-      if (!el) return false;
-      const req = el.requestFullscreen || el.webkitRequestFullscreen || el.webkitEnterFullscreen;
-      if (!req) return false;
-      const out = req.call(el);
-      if (out && typeof out.catch === 'function') out.catch(() => {});
-      return true;
+    const targets = useIframe ? [iframe, slide, overlay] : [video, slide, overlay];
+    const run = (i) => {
+      if (i >= targets.length) return;
+      enterFs(targets[i]).catch(() => run(i + 1));
     };
-    if (!tryFs(video) && !tryFs(slide)) tryFs(slide && slide.closest('.sf-overlay'));
+    run(0);
     bumpCtrl();
   };
 
@@ -203,7 +216,7 @@ export default function VideoSlide({
     <div ref={slideRef} className={`sf-slide${showCtrl ? ' is-ctrl' : ''}${isFs ? ' is-fs' : ''}`} onClick={onSlideClick}>
       {item.thumb ? <div className="sf-slide-bg" style={{ backgroundImage: `url(${item.thumb})` }} /> : null}
       {useIframe && frame && active && !paused ? (
-        <iframe className="sf-iframe" src={frame} title={item.subject || 'video'} allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />
+        <iframe ref={iframeRef} className="sf-iframe" src={frame} title={item.subject || 'video'} allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />
       ) : (
         <video ref={videoRef} className="sf-video" playsInline muted={muted} loop poster={item.thumb || undefined} preload={active ? 'auto' : 'metadata'} />
       )}
@@ -262,8 +275,6 @@ export default function VideoSlide({
           type="button"
           className="sf-ctrl-fs"
           aria-label={isFs ? '전체보기 종료' : '전체 보기'}
-          onPointerDown={(e) => { e.stopPropagation(); }}
-          onPointerUp={onFullscreen}
           onClick={onFullscreen}
         >
           <IconFullscreen on={isFs} />

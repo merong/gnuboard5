@@ -177,6 +177,18 @@
   height: 100%;
   background: #000;
 }
+.sf-slide:fullscreen,
+.sf-slide:-webkit-full-screen {
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+.sf-slide:fullscreen .sf-video,
+.sf-slide:-webkit-full-screen .sf-video,
+.sf-video:fullscreen,
+.sf-video:-webkit-full-screen {
+  object-fit: contain;
+}
 
 .sf-slide-bg {
   position: absolute;
@@ -388,21 +400,19 @@
   flex-shrink: 0;
 }
 .sf-sheet-head {
-  display: flex;
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
   align-items: center;
-  justify-content: center;
-  position: relative;
   min-height: 44px;
-  padding: 0 48px 4px;
+  padding: 0 4px 4px;
 }
-.sf-sheet-head strong { font-size: 14px; font-weight: 700; color: #fff; }
+.sf-sheet-head::before { content: ""; }
+.sf-sheet-head strong { font-size: 14px; font-weight: 700; color: #fff; text-align: center; }
 .sf-sheet-x {
-  position: absolute;
-  right: 4px;
-  top: 0;
   width: 44px;
   min-width: 44px;
   min-height: 44px;
+  justify-self: end;
   padding: 0;
   border: 0;
   border-radius: 999px;
@@ -418,6 +428,13 @@
   overflow: auto;
   padding: 4px 16px 8px;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.22) transparent;
+}
+.sf-sheet-list::-webkit-scrollbar { width: 6px; }
+.sf-sheet-list::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,.22);
+  border-radius: 999px;
 }
 .sf-sheet-empty {
   text-align: center;
@@ -435,7 +452,7 @@
   background: transparent;
   border: 0;
 }
-.sf-cmt.is-reply { padding-left: 42px; }
+.sf-cmt.is-reply { padding-left: 36px; }
 .sf-cmt-avatar {
   width: 36px; height: 36px; border-radius: 50%;
   background: #2a2a2a; color: #f1f1f1; font-size: 13px; font-weight: 800;
@@ -455,8 +472,8 @@
 }
 .sf-cmt-reply {
   border: 0;
-  padding: 0;
-  min-height: 28px;
+  padding: 0 8px;
+  min-height: 44px;
   background: transparent;
   color: #8a8a8a;
   font-size: 12px;
@@ -466,7 +483,8 @@
 .sf-cmt-more {
   display: block;
   margin: 0 0 0 46px;
-  padding: 6px 0;
+  padding: 0;
+  min-height: 44px;
   border: 0;
   background: transparent;
   color: #8a8a8a;
