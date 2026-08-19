@@ -31,17 +31,17 @@ body > *:not(.popup_win) { display: none !important; }
             <div class="fm_fields">
                 <?php if (!$is_member) { ?>
                 <div class="fm_field">
-                    <label class="fm_label" for="fnick">이름 <span style="color:#03c75a">*</span></label>
+                    <label class="fm_label" for="fnick">이름 <span style="color:var(--portal-primary)">*</span></label>
                     <input type="text" name="fnick" id="fnick" required class="fm_input" placeholder="이름을 입력하세요">
                 </div>
                 <div class="fm_field">
-                    <label class="fm_label" for="fmail">이메일 <span style="color:#03c75a">*</span></label>
+                    <label class="fm_label" for="fmail">이메일 <span style="color:var(--portal-primary)">*</span></label>
                     <input type="text" name="fmail" id="fmail" required class="fm_input" placeholder="이메일 주소를 입력하세요">
                 </div>
                 <?php } ?>
 
                 <div class="fm_field">
-                    <label class="fm_label" for="subject">제목 <span style="color:#03c75a">*</span></label>
+                    <label class="fm_label" for="subject">제목 <span style="color:var(--portal-primary)">*</span></label>
                     <input type="text" name="subject" id="subject" required class="fm_input" placeholder="메일 제목을 입력하세요">
                 </div>
 
@@ -61,7 +61,7 @@ body > *:not(.popup_win) { display: none !important; }
                 </div>
 
                 <div class="fm_field">
-                    <label class="fm_label" for="content">내용 <span style="color:#03c75a">*</span></label>
+                    <label class="fm_label" for="content">내용 <span style="color:var(--portal-primary)">*</span></label>
                     <textarea name="content" id="content" required class="fm_textarea" placeholder="내용을 입력하세요"></textarea>
                 </div>
 

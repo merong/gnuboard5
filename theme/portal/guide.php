@@ -53,16 +53,16 @@ $guide_bg = G5_THEME_URL . '/img/ghibli_banner_2.jpg';
     .guide_icons { background: #f8f9fa; padding: 40px 0; border-bottom: 1px solid #eee; }
     .icons_inner { display: flex; justify-content: center; align-items: center; gap: 80px; max-width: 1130px; margin: 0 auto; }
     .icon_item { text-align: center; }
-    .icon_item i { font-size: 32px; color: #03c75a; margin-bottom: 15px; display: block; }
+    .icon_item i { font-size: 32px; color: var(--portal-primary); margin-bottom: 15px; display: block; }
     .icon_item span { font-size: 15px; font-weight: bold; color: #555; }
 
     .guide_main_content { padding: 60px 0; max-width: 1000px; margin: 0 auto; min-height: 400px; }
     .content_body h3 { font-size: 22px; margin-top: 50px; margin-bottom: 25px; color: #111; font-weight: 800; display: flex; align-items: center; }
     .content_body h3:first-child { margin-top: 0; }
-    .content_body h3:before { content: ''; display: inline-block; width: 4px; height: 18px; background: #03c75a; margin-right: 12px; border-radius: 2px; }
+    .content_body h3:before { content: ''; display: inline-block; width: 4px; height: 18px; background: var(--portal-primary); margin-right: 12px; border-radius: 2px; }
     
     .guide_list { margin-bottom: 50px; }
-    .guide_list dt { font-size: 18px; font-weight: bold; color: #03c75a; margin-bottom: 10px; }
+    .guide_list dt { font-size: 18px; font-weight: bold; color: var(--portal-primary); margin-bottom: 10px; }
     .guide_list dd { margin-left: 0; margin-bottom: 30px; font-size: 16px; color: #555; }
 
     /* 운영 정책 아티클 스타일 */
@@ -71,15 +71,15 @@ $guide_bg = G5_THEME_URL . '/img/ghibli_banner_2.jpg';
     .policy_text { font-size: 15px; color: #555; line-height: 1.8; margin-bottom: 20px; }
     .policy_sublist { list-style: none; padding: 0; margin: 15px 0; background: #fafafa; border-radius: 8px; padding: 20px; }
     .policy_sublist li { position: relative; padding-left: 15px; margin-bottom: 8px; font-size: 14px; }
-    .policy_sublist li:before { content: '•'; position: absolute; left: 0; color: #03c75a; font-weight: bold; }
+    .policy_sublist li:before { content: '•'; position: absolute; left: 0; color: var(--portal-primary); font-weight: bold; }
     .policy_sublist li:last-child { margin-bottom: 0; }
 
     /* 포인트 테이블 스타일 */
-    .point_table { width: 100%; border-collapse: collapse; margin-bottom: 30px; border-top: 2px solid #03c75a; }
+    .point_table { width: 100%; border-collapse: collapse; margin-bottom: 30px; border-top: 2px solid var(--portal-primary); }
     .point_table th, .point_table td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; font-size: 15px; }
     .point_table th { background: #fcfcfc; color: #111; width: 70%; }
-    .point_table td { text-align: right; font-weight: bold; color: #03c75a; }
-    .point_table .minus { color: #ff3a48; }
+    .point_table td { text-align: right; font-weight: bold; color: var(--portal-primary); }
+    .point_table .minus { color: var(--moidam-hot); }
 
     .history_box { background: #f9f9f9; padding: 25px; border-radius: 10px; margin-bottom: 40px; border: 1px solid #eee; }
     .history_box p { margin-bottom: 8px; font-size: 14px; color: #666; }

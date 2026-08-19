@@ -2,14 +2,14 @@
    Mobile Portal FAQ Skin — mptl_faq_*
    ============================================= */
 :root {
-    --mptl-primary:    #03c75a;
-    --mptl-primary-dk: #02b050;
-    --mptl-text:       #1a1a1a;
-    --mptl-meta:       #888;
+    --mptl-primary:    var(--portal-primary);
+    --mptl-primary-dk: var(--portal-primary-hover);
+    --mptl-text:       var(--portal-text);
+    --mptl-meta:       var(--portal-text-sub);
     --mptl-border:     #efefef;
-    --mptl-bg:         #f4f5f7;
+    --mptl-bg:         var(--portal-bg);
     --mptl-white:      #fff;
-    --mptl-radius:     8px;
+    --mptl-radius:     var(--moidam-radius-sm);
 }
 
 #mptl_faq_wrap { background: var(--mptl-bg); min-height: 100vh; font-size: 14px; padding-bottom: 30px; }
@@ -148,7 +148,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #e8f9ef;
+    background: var(--portal-primary-soft);
     color: var(--mptl-primary);
     font-size: 13px;
     font-weight: 700;

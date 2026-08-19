@@ -5,10 +5,10 @@
 :root {
     --mb-primary:    var(--portal-primary);
     --mb-primary-dk: var(--portal-primary-hover);
-    --mb-text:       #1a1a1a;
-    --mb-meta:       #888;
+    --mb-text:       var(--portal-text);
+    --mb-meta:       var(--portal-text-sub);
     --mb-border:     #efefef;
-    --mb-bg:         #f4f5f7;
+    --mb-bg:         var(--portal-bg);
     --mb-white:      #fff;
     --mb-radius:     10px;
 }
@@ -223,8 +223,8 @@
     font-size: 9px;
     font-weight: 700;
     color: var(--mb-primary);
-    background: #e8f9ef;
-    border: 1px solid #c3edda;
+    background: var(--portal-primary-soft);
+    border: 1px solid var(--portal-primary-soft-line);
     border-radius: 10px;
     padding: 1px 5px;
     margin-left: 3px;
@@ -273,8 +273,8 @@
     white-space: nowrap;
 }
 .mb_badge_notice { background: var(--mb-primary); color: #fff; }
-.mb_badge_cate   { background: #e8f9ef; color: var(--mb-primary); border: 1px solid #c3edda; }
-.mb_badge_new    { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; padding: 0; background: #ff4f4f; color: #fff; font-size: 10px; border-radius: 3px; font-weight: 700; flex-shrink: 0; }
+.mb_badge_cate   { background: var(--portal-primary-soft); color: var(--mb-primary); border: 1px solid var(--portal-primary-soft-line); }
+.mb_badge_new    { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; padding: 0; background: var(--moidam-new); color: #fff; font-size: 10px; border-radius: 3px; font-weight: 700; flex-shrink: 0; }
 .mb_icon_file    { color: var(--mb-meta); font-size: 12px; vertical-align: middle; }
 
 /* ── 페이지네이션 ── */
@@ -330,11 +330,11 @@
 :root {
     --bsk-primary:    var(--portal-primary);
     --bsk-primary-dk: var(--portal-primary-hover);
-    --bsk-danger:     #e53935;
-    --bsk-text:       #1a1a1a;
-    --bsk-meta:       #888;
+    --bsk-danger:     var(--moidam-danger);
+    --bsk-text:       var(--portal-text);
+    --bsk-meta:       var(--portal-text-sub);
     --bsk-border:     #efefef;
-    --bsk-bg:         #f4f5f7;
+    --bsk-bg:         var(--portal-bg);
     --bsk-white:      #fff;
     --bsk-radius:     10px;
 }
@@ -360,7 +360,7 @@
     margin-bottom: 8px;
     white-space: nowrap;
 }
-.bsk_badge_cate { background: #e8f9ef; color: var(--bsk-primary); border: 1px solid #c3edda; }
+.bsk_badge_cate { background: var(--portal-primary-soft); color: var(--bsk-primary); border: 1px solid var(--portal-primary-soft-line); }
 .bsk_view_tit {
     margin: 0;
     font-size: 17px;

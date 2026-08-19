@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+/* ============================================================
+   모담(모이담) 디자인 토큰 — 단일 출처(single source of truth)
+
+   · 로드 순서: head.sub.php 가 코어 default.css 다음, 테마 default.css 앞에 넣는다.
+     custom property 는 선언 위치와 무관하게 var() 로 참조되므로 뒤에 오는
+     테마/스킨 CSS 어디서든 바로 쓸 수 있다.
+   · 포인트 컬러(--portal-primary / --portal-primary-hover)는 관리자가 고른
+     프리셋(portal.settings.php PORTAL_THEME_COLOR_PRESETS)에 따라 head.sub.php 가
+     인라인 <style>:root{…}</style> 로 덮어쓴다. 여기 값은 프리셋 'default'
+     (테마 원본 그린)와 항상 같아야 한다.
+   · UI 키트: /theme/portal/design/ (이 파일을 파싱해 토큰 표를 그린다.
+     `@group <kind> <label>` 주석이 섹션 구분자이므로 형식을 유지할 것.
+     kind = color | type | shape | shadow | space | layout)
+   · 새 색/크기가 필요하면 hex·px 를 직접 적지 말고 여기에 토큰을 추가한 뒤
+     var(--…) 로 참조한다. 브랜드 색(그린/네이비/앰버) 하드코딩 금지.
+   ============================================================ */
+:root {
+    /* @group color 브랜드 · 포인트 컬러 */
+    --portal-primary: #03c75a;                 /* 프리셋 primary (운영: 네이비 #0B1849) */
+    --portal-primary-hover: #02b050;           /* 프리셋 hover   (운영: #09143E) */
+    --portal-primary-soft: color-mix(in srgb, var(--portal-primary) 10%, var(--portal-surface)); /* 연한 칩·카테고리 뱃지 배경 */
+    --portal-primary-soft-line: color-mix(in srgb, var(--portal-primary) 25%, var(--portal-surface)); /* 연한 칩 테두리 */
+    --portal-on-primary: #fff;                 /* 포인트 컬러 위 글자 */
+
+    /* @group color 액센트 (앰버) */
+    --moidam-accent: #f0a04b;                  /* CTA·탭 밑줄·섹션 바·링크 강조 */
+    --moidam-accent-hover: #e08b2e;            /* 액센트 hover·랭킹 */
+    --moidam-accent-soft: rgba(240, 160, 75, 0.16); /* 아이콘 칩·현재 항목·연한 배경 */
+    --moidam-accent-ring: rgba(240, 160, 75, 0.22); /* 입력 포커스 링 (0 0 0 3px) */
+    --moidam-on-accent: #1a1208;               /* 앰버 버튼 위 글자 */
+
+    /* @group color 배경 · 표면 · 선 */
+    --portal-bg: #f4f5f7;                      /* 페이지 배경 */
+    --portal-surface: #fff;                    /* 카드·위젯 표면 */
+    --portal-surface-alt: #f8f9fa;             /* 탑헤더·위젯 헤드·표 머리 */
+    --portal-border: #ebebeb;                  /* 기본 구분선 */
+    --moidam-line: #f2f2f2;                    /* 목록 행 구분선 */
+    --moidam-line-strong: #e0e0e0;             /* 입력·표 테두리 */
+    --moidam-card-border: rgba(15, 23, 42, 0.06); /* 카드 외곽선 (+ --moidam-shadow-soft) */
+    --moidam-footer-bg: #0f172a;               /* 푸터 배경 (다크에서도 고정) */
+
+    /* @group color 텍스트 */
+    --portal-text: #1a1a1a;                    /* 본문 */
+    --moidam-ink: #0f172a;                     /* 섹션 제목·히어로 제목 */
+    --moidam-ink-2: #1e293b;                   /* GNB·강조 텍스트 */
+    --portal-text-sub: #888;                   /* 메타·탭 비활성 */
+    --moidam-text-muted: #6b7280;              /* 설명·닉네임 */
+    --moidam-text-faint: #9ca3af;              /* 날짜·더보기·빈 상태 */
+
+    /* @group color 상태 */
+    --moidam-danger: #e53935;                  /* 삭제·오류·경고 */
+    --moidam-danger-soft: #fdf0ef;             /* 삭제 버튼 hover 배경 */
+    --moidam-hot: #ff3a48;                     /* HOT 뱃지 배경·1위 랭크 */
+    --moidam-hot-text: #e84040;                /* 인기 뱃지 글자·새 쪽지 수 */
+    --moidam-hot-soft: #fff0f0;                /* 인기 뱃지 배경 */
+    --moidam-new: #ff4747;                     /* 새글 점 뱃지 */
+
+    /* @group type 타이포그래피 */
+    --moidam-font-sans: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; /* 본문 */
+    --moidam-font-display: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif; /* 로고·브랜드 */
+    --moidam-font-mono: ui-monospace, SFMono-Regular, Menlo, monospace; /* 코드·토큰 값 */
+    --moidam-fs-2xs: 10px;                     /* 뱃지 */
+    --moidam-fs-xs: 11px;                      /* 날짜·보조 메타 */
+    --moidam-fs-sm: 12px;                      /* 닉네임·위젯 보조 */
+    --moidam-fs-md: 13px;                      /* 목록·링크 */
+    --moidam-fs-base: 14px;                    /* 본문·GNB·위젯 제목 */
+    --moidam-fs-lg: 15px;                      /* 카드 제목 (.half_board h3) */
+    --moidam-fs-xl: 16px;                      /* 카드 제목 (.gallery_section h3) */
+    --moidam-fs-2xl: 18px;                     /* 섹션 제목 */
+    --moidam-fs-3xl: 24px;                     /* 히어로 제목 최소 */
+    --moidam-fs-4xl: 32px;                     /* 로고 */
+    --moidam-lh: 1.5;                          /* 기본 행간 */
+    --moidam-tracking-tight: -0.02em;          /* 제목·GNB */
+    --moidam-tracking-tighter: -0.04em;        /* 히어로·로고(-0.06em) */
+
+    /* @group shape 모양 */
+    --moidam-radius: 14px;                     /* 카드·위젯 */
+    --moidam-radius-lg: 16px;                  /* 히어로 */
+    --moidam-radius-md: 12px;                  /* 가이드 바·아이콘 칩 */
+    --moidam-radius-sm: 8px;                   /* 썸네일·bsk 카드 */
+    --moidam-radius-xs: 4px;                   /* cafe/bsk 버튼·입력 */
+    --moidam-radius-pill: 999px;               /* 검색창·CTA */
+
+    /* @group shadow 그림자 */
+    --moidam-shadow: 0 8px 28px rgba(11, 24, 73, 0.08);    /* 히어로·떠 있는 카드 */
+    --moidam-shadow-soft: 0 2px 12px rgba(15, 23, 42, 0.06); /* 기본 카드 */
+
+    /* @group space 간격 */
+    --moidam-space-sm: 14px;                   /* 위젯 사이 */
+    --moidam-space-md: 16px;                   /* 사이드 위젯 사이·.inner 패딩 */
+    --moidam-space: 20px;                      /* 카드 사이 */
+    --moidam-space-lg: 28px;                   /* 컬럼 사이 */
+    --moidam-card-pad: 18px 20px;              /* 카드 패딩 */
+
+    /* @group layout 레이아웃 */
+    --moidam-inner: 1130px;                    /* .inner 폭 (padding 16 포함) */
+    --moidam-side-col: 336px;                  /* 메인 우측 사이드 */
+    --moidam-board-side: 280px;                /* 게시판 사이드 */
+    --moidam-board-gap: 24px;                  /* 게시판 본문-사이드 간격 */
+    --moidam-header-z: 200;                    /* sticky 헤더 z-index */
+}
+
+/* 다크모드 팔레트 — html 태그에 data-theme="dark" 가 붙으면 전환된다.
+   (핵심 레이아웃 범위만. theme/portal/CLAUDE.md "다크모드" 절 참고.) */
+html[data-theme="dark"] {
+    --portal-bg:           #1a1814;
+    --portal-surface:      #26221c;
+    --portal-surface-alt:  #302b24;
+    --portal-border:       #3f382f;
+    --moidam-line:         #3f382f;
+    --moidam-line-strong:  #4a4238;
+    --moidam-card-border:  rgba(255, 255, 255, 0.06);
+    --portal-text:         #f3eee6;
+    --moidam-ink:          #f3eee6;
+    --moidam-ink-2:        #e8e1d6;
+    --portal-text-sub:     #c4b8a8;
+    --moidam-text-muted:   #b3a798;
+    --moidam-text-faint:   #8c8171;
+}

@@ -1,34 +1,11 @@
 @charset "utf-8";
 
 /* ============================================================
-   테마 포인트 컬러 (관리자 편집 모달의 "색상" 탭에서 프리셋 선택 시
-   head.sub.php 가 이 값을 인라인 <style> 로 덮어쓴다. portal.settings.php
-   의 PORTAL_THEME_COLOR_PRESETS 참고. 기본값은 항상 원래 그린 색상.)
+   디자인 토큰은 css/tokens.css 로 옮겼다 (단일 출처).
+   --portal-primary/--portal-primary-hover 는 관리자 프리셋에 따라 head.sub.php 가
+   인라인 <style> 로 덮어쓰고, 다크모드 팔레트(html[data-theme="dark"])도 tokens.css 에 있다.
+   여기서는 토큰을 다시 선언하지 말 것 — 토큰 표·UI 키트: /theme/portal/design/
    ============================================================ */
-:root {
-    --portal-primary: #03c75a;
-    --portal-primary-hover: #02b050;
-
-    /* 다크모드 팔레트 (핵심 레이아웃 범위만 — 헤더/GNB/사이드바/홈 카드/푸터/게시판 기본 배경.
-       글쓰기 폼·관리자 편집 모달·portal-search-page 는 범위 밖이라 라이트 고정.
-       #dark_mode_toggle 클릭 시 html 태그에 data-theme="dark" 를 붙이면 아래로 전환된다.
-       자세한 배경은 theme/portal/CLAUDE.md "다크모드" 절 참고.) */
-    --portal-bg:           #f4f5f7;
-    --portal-surface:      #fff;
-    --portal-surface-alt:  #f8f9fa;
-    --portal-border:       #ebebeb;
-    --portal-text:         #1a1a1a;
-    --portal-text-sub:     #888;
-}
-
-html[data-theme="dark"] {
-    --portal-bg:           #1a1814;
-    --portal-surface:      #26221c;
-    --portal-surface-alt:  #302b24;
-    --portal-border:       #3f382f;
-    --portal-text:         #f3eee6;
-    --portal-text-sub:     #c4b8a8;
-}
 
 /* ============================================================
    Reset & Base
@@ -269,7 +246,7 @@ li.sv_zfix,
 }
 
 body {
-    font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    font-family: var(--moidam-font-sans);
     background-color: var(--portal-bg);
     color: var(--portal-text);
     font-size: 14px;
@@ -284,7 +261,7 @@ img { max-width: 100%; vertical-align: middle; }
 /* ============================================================
    Layout
    ============================================================ */
-.inner { width: 1130px; max-width: 100%; margin: 0 auto; padding: 0 16px; box-sizing: border-box; }
+.inner { width: var(--moidam-inner); max-width: 100%; margin: 0 auto; padding: 0 var(--moidam-space-md); box-sizing: border-box; }
 #portal_wrap { min-width: 320px; }
 
 /* ── 최상단 광고 영역 ── */
@@ -400,7 +377,7 @@ img { max-width: 100%; vertical-align: middle; }
 #portal_header .search_wrap .sch_voice_btn:hover { color: var(--portal-primary) !important; }
 #portal_header .search_wrap .sch_voice_btn.listening {
     color: #fff !important;
-    background: #ff4747 !important;
+    background: var(--moidam-new) !important;
     animation: pts_voice_pulse 1.2s ease-in-out infinite;
 }
 @keyframes pts_voice_pulse {
@@ -613,7 +590,7 @@ html[data-theme="dark"] #portal_header .dark_mode_toggle:hover { color: var(--po
 }
 .gnb_sub li + li { border-top: 1px solid var(--portal-border); }
 
-.gnb_empty a { color: #e84040 !important; }
+.gnb_empty a { color: var(--moidam-hot-text) !important; }
 
 /* ============================================================
    Outlogin 스킨
@@ -734,7 +711,7 @@ html[data-theme="dark"] #portal_header .dark_mode_toggle:hover { color: var(--po
     font-size: 11px;
     font-weight: 700;
     color: #fff;
-    background: #e84040;
+    background: var(--moidam-hot-text);
     padding: 1px 6px;
     border-radius: 3px;
     vertical-align: middle;
@@ -760,10 +737,10 @@ html[data-theme="dark"] #portal_header .dark_mode_toggle:hover { color: var(--po
     text-decoration: none;
     transition: background 0.1s;
 }
-.ol_stats a:hover { background: var(--moidam-accent-soft, rgba(240,160,75,.16)); } /* overridden in custom.css */
+.ol_stats a:hover { background: var(--moidam-accent-soft); } /* overridden in custom.css */
 .ol_stat_label { font-size: 11px; color: var(--portal-text-sub); margin-bottom: 4px; }
 .ol_stat_val { font-size: 15px; font-weight: 700; color: var(--portal-text); }
-.ol_stat_new { color: #e84040; }
+.ol_stat_new { color: var(--moidam-hot-text); }
 .ol_stat_done { color: var(--portal-primary); }
 
 .ol_actions {
@@ -784,7 +761,7 @@ html[data-theme="dark"] #portal_header .dark_mode_toggle:hover { color: var(--po
 }
 .ol_action_link:hover { border-color: var(--portal-primary); color: var(--portal-primary); }
 .ol_logout { color: var(--portal-text-sub); }
-.ol_logout:hover { border-color: #e84040; color: #e84040; }
+.ol_logout:hover { border-color: var(--moidam-hot-text); color: var(--moidam-hot-text); }
 
 /* ============================================================
    Main Container
@@ -796,12 +773,12 @@ html[data-theme="dark"] #portal_header .dark_mode_toggle:hover { color: var(--po
 /* min-width: 0 이 핵심: flex 아이템이 table 등 내부 콘텐츠에 의해
    부모를 터뜨리는 현상 방지 (flex 기본값 min-width:auto 대신 0 지정) */
 .portal_main_grid .grid_left  { flex: 1; min-width: 0; width: 0; overflow: visible; }
-.portal_main_grid .grid_right { width: 336px; flex-shrink: 0; }
+.portal_main_grid .grid_right { width: var(--moidam-side-col); flex-shrink: 0; }
 
 /* ── 게시판 사이드바 레이아웃 ── */
 .portal_board_layout {
     display: flex;
-    gap: 24px;
+    gap: var(--moidam-board-gap);
     align-items: flex-start;
     width: 100%;
 }
@@ -811,11 +788,11 @@ html[data-theme="dark"] #portal_header .dark_mode_toggle:hover { color: var(--po
     overflow: visible;
 }
 .portal_board_side {
-    width: 280px;
+    width: var(--moidam-board-side);
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--moidam-space-md);
 }
 
 /* ── 게시판 사이드바 광고 ── */
@@ -849,7 +826,7 @@ html[data-theme="dark"] #portal_header .dark_mode_toggle:hover { color: var(--po
     font-size: 11px;
     padding: 2px 7px;
     border-radius: 20px;
-    background: #e8f9ef;
+    background: var(--portal-primary-soft);
     color: var(--portal-primary);
     font-weight: 600;
 }
@@ -1128,7 +1105,7 @@ body.pe_lock { overflow: hidden; }
     background: none; border: none; color: #ccc; font-size: 18px;
     cursor: pointer; padding: 0 4px; line-height: 1; margin-top: 4px;
 }
-.pe_banner_del:hover { color: #e74c3c; }
+.pe_banner_del:hover { color: var(--moidam-danger); }
 
 /* 푸터 메뉴 편집 행 */
 .pe_fmenu_row {
@@ -1156,7 +1133,7 @@ body.pe_lock { overflow: hidden; }
 }
 .pe_msg     { font-size: 12px; flex: 1; }
 .pe_msg.ok  { color: var(--portal-primary); }
-.pe_msg.err { color: #e74c3c; }
+.pe_msg.err { color: var(--moidam-danger); }
 
 .pe_btn_save {
     height: 36px; padding: 0 20px; background: var(--portal-primary); border: none;
@@ -1679,7 +1656,7 @@ body.pe_lock { overflow: hidden; }
     line-height: 16px;
 }
 .badge_notice { background: #e8f3ff; color: #0068c8; }
-.badge_hot    { background: #fff0f0; color: #e84040; }
+.badge_hot    { background: var(--moidam-hot-soft); color: var(--moidam-hot-text); }
 
 .nv_new_dot {
     display: inline-block;
@@ -1805,7 +1782,7 @@ body.pe_lock { overflow: hidden; }
     color: #fff;
     flex-shrink: 0;
 }
-.wtitle_badge.hot { background: #ff3a48; }
+.wtitle_badge.hot { background: var(--moidam-hot); }
 .widget_title_sub {
     font-size: 11px;
     color: #aaa;
@@ -1878,7 +1855,7 @@ body.pe_lock { overflow: hidden; }
 }
 .sl_cmt {
     font-size: 11px;
-    color: #ff3a48;
+    color: var(--moidam-hot);
     font-weight: 700;
     flex-shrink: 0;
 }
@@ -1890,7 +1867,7 @@ body.pe_lock { overflow: hidden; }
     height: 14px;
     font-size: 9px;
     font-weight: 800;
-    background: #ff4747;
+    background: var(--moidam-new);
     color: #fff;
     border-radius: 2px;
     flex-shrink: 0;
@@ -1936,7 +1913,7 @@ body.pe_lock { overflow: hidden; }
     color: #ccc;
     flex-shrink: 0;
 }
-.popular_art_item:nth-child(1) .pa_rank { color: #ff3a48; }
+.popular_art_item:nth-child(1) .pa_rank { color: var(--moidam-hot); }
 .popular_art_item:nth-child(2) .pa_rank { color: #ff7b00; }
 .popular_art_item:nth-child(3) .pa_rank { color: #f5a623; }
 
@@ -2075,8 +2052,8 @@ body.pe_lock { overflow: hidden; }
 .bsk_btn_submit { background: var(--portal-primary); color: #fff; border-color: var(--portal-primary); }
 .bsk_btn_submit:hover { background: var(--portal-primary-hover); color: #fff; }
 .bsk_btn_admin { color: #888; }
-.bsk_btn_danger { color: #e74c3c; }
-.bsk_btn_danger:hover { background: #fdf0ef; border-color: #e74c3c; }
+.bsk_btn_danger { color: var(--moidam-danger); }
+.bsk_btn_danger:hover { background: var(--moidam-danger-soft); border-color: var(--moidam-danger); }
 .bsk_btn_sm { padding: 4px 8px; font-size: 12px; }
 
 /* Badges */
@@ -2087,7 +2064,7 @@ body.pe_lock { overflow: hidden; }
 }
 .bsk_badge_notice { background: #ff6b35; color: #fff; }
 .bsk_badge_new    { background: var(--portal-primary); color: #fff; }
-.bsk_badge_hot    { background: #e74c3c; color: #fff; }
+.bsk_badge_hot    { background: var(--moidam-hot); color: #fff; }
 .bsk_badge_cate   { background: #eef6fb; color: #1a73e8; border: 1px solid #c8dff9; }
 .bsk_badge_current { background: #555; color: #fff; }
 
@@ -2564,7 +2541,7 @@ li.bsk_gall_item.sv_zfix { z-index: 50 !important; }
     transition: all 0.12s;
 }
 .bsk_react_good:hover  { border-color: var(--portal-primary); color: var(--portal-primary); background: #f0faf5; }
-.bsk_react_nogood:hover { border-color: #e74c3c; color: #e74c3c; background: #fdf0ef; }
+.bsk_react_nogood:hover { border-color: var(--moidam-danger); color: var(--moidam-danger); background: var(--moidam-danger-soft); }
 .bsk_react_msg { font-size: 12px; color: #aaa; display: none; }
 
 /* Attachments */
@@ -2766,7 +2743,7 @@ li.bsk_gall_item.sv_zfix { z-index: 50 !important; }
 }
 .bsk_write_row_subject .bsk_write_label { padding-top: 0; }
 
-.bsk_required { color: #e74c3c; font-size: 12px; }
+.bsk_required { color: var(--moidam-danger); font-size: 12px; }
 
 /* 필드 영역 */
 .bsk_write_field { display: flex; flex-direction: column; gap: 6px; }
@@ -2934,7 +2911,7 @@ li.bsk_gall_item.sv_zfix { z-index: 50 !important; }
     border: 1px solid #ddd; border-radius: 3px;
     background: #f7f7f7; cursor: pointer; color: #888; transition: all 0.1s;
 }
-#autosave_pop ul li button.autosave_del:hover { background: #fee; border-color: #f5a0a0; color: #e74c3c; }
+#autosave_pop ul li button.autosave_del:hover { background: #fee; border-color: #f5a0a0; color: var(--moidam-danger); }
 .bsk_autosave_foot {
     padding: 8px 16px;
     border-top: 1px solid #f0f0f0;
@@ -2976,7 +2953,7 @@ li.bsk_gall_item.sv_zfix { z-index: 50 !important; }
     align-items: center;
     gap: 5px;
     font-size: 13px;
-    color: #e74c3c;
+    color: var(--moidam-danger);
     cursor: pointer;
 }
 .bsk_file_del label { cursor: pointer; display: flex; align-items: center; gap: 5px; }

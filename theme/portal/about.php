@@ -67,8 +67,8 @@ $about_bg = G5_THEME_URL . '/img/ghibli_banner_1.jpg';
         transition: all 0.3s ease;
     }
     .about_admin_btn a:hover {
-        background: #03c75a !important;
-        border-color: #03c75a !important;
+        background: var(--portal-primary) !important;
+        border-color: var(--portal-primary) !important;
         transform: rotate(90deg);
     }
 
@@ -90,7 +90,7 @@ $about_bg = G5_THEME_URL . '/img/ghibli_banner_1.jpg';
     .hero_content p { font-size: 18px; opacity: 0.9; font-weight: 300; }
 
     /* 방문자 통계 바 */
-    .about_stats { background: #03c75a; color: #fff; padding: 25px 0; text-align: center; }
+    .about_stats { background: var(--portal-primary); color: #fff; padding: 25px 0; text-align: center; }
     .stats_inner { display: flex; justify-content: center; align-items: center; gap: 60px; max-width: 1130px; margin: 0 auto; }
     .stat_item b { font-size: 28px; font-family: 'Tahoma', sans-serif; }
     .stat_item span { font-size: 13px; opacity: 0.85; display: block; margin-bottom: 2px; }

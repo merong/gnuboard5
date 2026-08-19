@@ -54,11 +54,37 @@ portal_top_banner_allowed()               // top_banner.exclude_members 기준
 - `top_banner`는 자체 `exclude_members` 필드를 가집니다(광고와 별개 목록).
 - 앞으로 "특정 회원에게만 안 보이게" 하는 기능을 추가할 때는 새 설정 값에 `exclude_members` 배열을 두고 `portal_member_excluded()`를 재사용하면 됩니다. 관리자 UI 쪽에는 콤마 구분 입력창 + 저장 시 `split(',').map(trim).filter(Boolean)` 패턴을 그대로 복사해 쓰면 됩니다(광고 탭의 `pe_ad_exclude_members`, 헤더배너 탭의 `pe_topbanner_exclude_members` 참고).
 
+## 디자인 토큰 · UI 키트 (`css/tokens.css`, `design/`)
+
+- **`css/tokens.css` 가 색·타이포·모양·그림자·간격·레이아웃 토큰의 단일 출처**다. `head.sub.php` 가 코어
+  `default.css` 다음, 테마 `default.css` 앞에 로드한다. `default.css`/`custom.css` 의 옛 `:root`
+  선언(`--portal-primary`, `--portal-bg…`, `--moidam-accent…`, `--moidam-radius…`)은 전부 여기로 옮겼고,
+  `custom.css` 에는 호환 별칭 `--moidam-navy-deep: var(--portal-primary)` 하나만 남겼다. **테마/스킨 CSS
+  에서 토큰을 다시 선언하지 말 것**(뒤에 로드되는 파일이 덮어써서 토큰 파일이 무력화된다).
+- 토큰 이름 규칙: 원래 테마 것은 `--portal-*`(primary/primary-hover/bg/surface/surface-alt/border/text/
+  text-sub + 새로 추가한 primary-soft/primary-soft-line/on-primary), 모담 추가분은 `--moidam-*`(accent 계열,
+  ink/ink-2/text-muted/text-faint/line/line-strong/card-border/footer-bg, danger/hot/hot-text/hot-soft/new,
+  font-*/fs-*/lh/tracking-*, radius(-lg/-md/-sm/-xs/-pill), shadow/shadow-soft, space(-sm/-md/-lg)/card-pad,
+  inner/side-col/board-side/board-gap/header-z). `--portal-primary-soft` 는 `color-mix()` 로 현재 포인트
+  컬러에서 파생되므로 프리셋을 바꾸면 연한 칩/카테고리 뱃지도 같이 따라온다.
+- **UI 키트 페이지 `/theme/portal/design/`** (`design/index.php` + `design/ui-kit.css`): 테마 chrome
+  (`head.php`/`tail.php`) 안에서 `tokens.css` 를 파싱해 토큰 표를 그리고, 실제 스킨 마크업·클래스로
+  버튼/입력/뱃지/카드/목록/위젯/게시판 목록을 시연한다. 상단 툴바의 프리셋/액센트/다크 전환은 **이 페이지
+  안에서만** CSS 변수를 바꾸는 미리보기다(실제 설정은 관리자 > 테마 편집 > 색상). 누구나 볼 수 있지만
+  `X-Robots-Tag: noindex` 를 보낸다. 토큰 표는 `tokens.css` 의 `/* @group <kind> <label> */` 주석을
+  섹션 구분자로, 각 줄의 끝 주석을 설명으로 쓰므로 **토큰을 추가할 때 이 주석 형식을 지킬 것**
+  (kind = color | type | shape | shadow | space | layout).
+- 스킨 로컬 변수(`--cs-*`, `--pms-*`/`--ms-*`/`--pmm-*`, `--ptl-*`/`--mptl-*`, `--mb-*`/`--bsk-*`/`--mg-*`)는
+  정의부가 토큰을 가리키도록 바꿔 두었다(예: `--pms-primary: var(--portal-primary)`, `--pms-danger:
+  var(--moidam-danger)`, `--cs-radius: var(--moidam-radius-xs)`). `#0B1849`/`#03c75a`/`#f0a04b` 류 브랜드
+  hex 와 상태색(`#e53935`/`#ff3a48`/`#e84040`/`#ff4747`)은 토큰으로 치환했고, 예외는 네이버 공유 버튼
+  (`.bsk_share_naver`, 네이버 브랜드색)과 `portal.settings.php` 의 프리셋 정의·관리자 모달 인라인 JS 뿐이다.
+
 ## 테마 포인트 컬러 프리셋 (색상 탭)
 
 `css/default.css`는 원래 CSS 커스텀 프로퍼티를 전혀 쓰지 않고 포인트 컬러(`#03c75a`)와 그 hover
-색(`#02b050`)을 파일 전체에 하드코딩하고 있었다. 이 기능을 넣으면서 파일 최상단 `:root`에
-`--portal-primary`/`--portal-primary-hover` 두 변수를 선언하고, 기존에 하드코딩돼 있던 모든
+색(`#02b050`)을 파일 전체에 하드코딩하고 있었다. 이 기능을 넣으면서 `:root`에
+`--portal-primary`/`--portal-primary-hover` 두 변수를 선언하고(지금은 `css/tokens.css` 에 있다), 기존에 하드코딩돼 있던 모든
 `#03c75a`/`#02b050`을 `var(--portal-primary)`/`var(--portal-primary-hover)`로 일괄 치환했다
 (겉보기 색은 원래와 100% 동일 — 오버라이드 가능하게만 바꾼 것). `index.php`의 관리자 모달 안
 인라인 스타일/JS 몇 곳에도 같은 색이 하드코딩돼 있었어서 함께 치환했다. **앞으로 이 브랜드
@@ -105,9 +131,9 @@ board 스킨들은 각자 자기 네임스페이스의 로컬 CSS 변수를 이�
   강제한다(화이트리스트 검증).
 - 실제 반영: `head.sub.php`가 `portal.settings.php`를 직접 `require_once`한 뒤
   `portal_theme_colors()`(현재 설정에 맞는 primary/hover hex 반환)의 값으로
-  `<style>:root{--portal-primary:..;--portal-primary-hover:..;}</style>`를 `default.css`
-  `<link>` 바로 뒤에 인라인 출력한다 — 기본값이어도 항상 출력(분기 단순화 목적, 출력 결과는
-  어차피 CSS 파일 기본값과 동일).
+  `<style>:root{--portal-primary:..;--portal-primary-hover:..;}</style>`를 `tokens.css`/`default.css`/
+  `custom.css` `<link>` 뒤에 인라인 출력한다 — 기본값이어도 항상 출력(분기 단순화 목적, 출력 결과는
+  어차피 `tokens.css` 기본값과 동일).
 - 관리자 UI: `index.php`의 "색상" 탭이 `PORTAL_THEME_COLOR_PRESETS`를 순회해 색상 스와치
   버튼을 렌더링(`data-color` 속성에 프리셋 키). 클릭 시 `pe_theme_color` hidden input에
   키를 저장하고 `.selected` 클래스를 토글한다.
@@ -182,7 +208,7 @@ SET co_skin='theme/portal_basic', co_mobile_skin='theme/portal_basic' WHERE co_i
 실제로 치환됐다는 보장은 없으니, 비슷한 리포트가 들어오면 목록에 있는 영역이라도
 `grep -n "#[0-9a-fA-F]\{3,6\}"`로 그 섹션을 다시 훑어볼 것.
 
-- **색상 변수**: `css/default.css` 최상단 `:root`에 `--portal-bg`(페이지 배경),
+- **색상 변수**: `css/tokens.css`(원래는 `css/default.css` 최상단) `:root`에 `--portal-bg`(페이지 배경),
   `--portal-surface`(카드/헤더/GNB 배경, 원래 `#fff`이던 곳), `--portal-surface-alt`(옅은
   회색 배경, 원래 `#f8f8f8`/`#f8f9fa`이던 곳), `--portal-border`(구분선, 원래 `#ebebeb`류),
   `--portal-text`(본문 텍스트, 원래 `#1a1a1a`류), `--portal-text-sub`(보조/흐린 텍스트, 원래
@@ -190,7 +216,10 @@ SET co_skin='theme/portal_basic', co_mobile_skin='theme/portal_basic' WHERE co_i
   색(`--portal-primary`)과 마찬가지로 **hex를 직접 쓰지 말고 반드시 이 변수를 쓸 것** —
   안 그러면 다크모드에서 그 부분만 라이트로 남는다. 여러 회색조(`#333`/`#444`/`#555`/`#666`/
   `#888`/`#aaa`/`#bbb`)를 전부 구분하지 않고 `--portal-text`/`--portal-text-sub` 둘로만
-  단순화했으므로, 새 텍스트 색이 필요하면 "진하면 text, 흐리면 text-sub" 기준으로 고를 것.
+  단순화했으므로, 새 텍스트 색이 필요하면 "진하면 text, 흐리면 text-sub" 기준으로 고를 것
+  (모담 레이어에서 쓰는 제목 잉크/보조 텍스트는 `--moidam-ink`/`--moidam-ink-2`/`--moidam-text-muted`/
+  `--moidam-text-faint`, 선은 `--moidam-line`/`--moidam-line-strong`/`--moidam-card-border` — 다크 값도
+  `tokens.css` 에 같이 있다).
 - **토글 스위치**: 켜고 끄는 상태 저장은 `localStorage`(`portal_theme` 키, `'dark'`/`'light'`)
   이고, DOM 반영은 `<html>` 태그의 `data-theme="dark"` 속성 유무로 한다. 저장값이 없으면
   `prefers-color-scheme: dark` 시스템 설정을 기본값으로 따른다.
@@ -228,4 +257,7 @@ SET co_skin='theme/portal_basic', co_mobile_skin='theme/portal_basic' WHERE co_i
 | `tail.php` | 푸터 + ToTop 버튼 렌더링, `</body></html>` 마감 |
 | `index.php` | 홈 화면 + 테마 편집 모달(관리자 UI) + 저장/업로드 연동 JS |
 | `_board_sidebar.php` | 게시판 사이드바(광고 포함) |
-| `css/default.css` | 전체 테마 스타일 (Top Header/Header/헤더배너 관련 규칙은 "Header" 섹션, 다크모드 변수는 "다크모드" 섹션 참고) |
+| `css/tokens.css` | 디자인 토큰 단일 출처 (색·타이포·모양·그림자·간격·레이아웃, 다크 팔레트). `@group` 주석이 UI 키트의 섹션 구분자 |
+| `css/default.css` | 전체 테마 스타일 (Top Header/Header/헤더배너 관련 규칙은 "Header" 섹션 참고). 토큰은 선언하지 않고 `var()` 로 참조만 한다 |
+| `css/custom.css` | 모담 커스터마이징 레이어(네이비 + 앰버 액센트, 히어로/퀵링크/웹진/아웃로그인/에디터 크롬 등). `default.css` 뒤에 로드되어 덮어쓴다 |
+| `design/index.php`, `design/ui-kit.css` | 디자인 토큰 · UI 키트 페이지 (`/theme/portal/design/`) — `tokens.css` 파싱 + 실제 컴포넌트 시연, 프리셋/액센트/다크 미리보기 툴바 |

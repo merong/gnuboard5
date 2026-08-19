@@ -1,0 +1,143 @@
+@charset "utf-8";
+
+/* ============================================================
+   모담 디자인 토큰 · UI 키트 페이지 전용 스타일 (theme/portal/design/index.php)
+   · 컴포넌트 자체는 테마 CSS(tokens.css → default.css → custom.css → 스킨 CSS)가 그리고,
+     여기에는 "시트" 레이아웃·스와치·툴바처럼 키트 페이지에만 필요한 껍데기만 둔다.
+   · 모든 클래스는 dk_ 접두어. 사이트 다른 화면에는 로드되지 않는다.
+   ============================================================ */
+.dk_sheet { padding: 8px 0 40px; }
+.dk_head {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 20px;
+    padding: 22px 0 18px; margin-bottom: 18px;
+    border-bottom: 1px solid var(--portal-border);
+}
+.dk_head h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.04em; color: var(--moidam-ink); }
+.dk_head h1 small { display: inline-block; margin-left: 8px; font-size: 12px; font-weight: 600; color: var(--moidam-text-faint); letter-spacing: 0; }
+.dk_head p { margin-top: 6px; font-size: 13px; color: var(--moidam-text-muted); }
+.dk_head_src { font-size: 11px; line-height: 1.8; text-align: right; color: var(--moidam-text-faint); font-family: var(--moidam-font-mono); white-space: nowrap; }
+.dk_head_src a { color: var(--moidam-accent-hover); }
+.dk_head_src code { font-family: inherit; }
+
+/* ── 미리보기 툴바 ── */
+.dk_toolbar {
+    position: sticky; top: 78px; z-index: 120;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px;
+    padding: 10px 16px; margin-bottom: 22px;
+    background: color-mix(in srgb, var(--portal-surface) 92%, transparent);
+    backdrop-filter: saturate(1.1) blur(8px);
+    border: 1px solid var(--moidam-card-border);
+    border-radius: var(--moidam-radius);
+    box-shadow: var(--moidam-shadow-soft);
+}
+.dk_tb_group { display: inline-flex; align-items: center; gap: 8px; }
+.dk_tb_label { font-size: 12px; font-weight: 700; color: var(--moidam-text-muted); white-space: nowrap; }
+.dk_swatch {
+    width: 26px; height: 26px; padding: 0; border-radius: 50%; cursor: pointer;
+    border: 2px solid var(--portal-surface); box-shadow: 0 0 0 1px var(--moidam-line-strong);
+    position: relative; transition: transform .12s;
+}
+.dk_swatch:hover { transform: scale(1.08); }
+.dk_swatch.is-on { box-shadow: 0 0 0 2px var(--moidam-accent); }
+.dk_swatch.is-site::after {
+    content: ""; position: absolute; right: -3px; bottom: -3px; width: 9px; height: 9px; border-radius: 50%;
+    background: var(--moidam-accent); border: 2px solid var(--portal-surface);
+}
+.dk_tb_hint { font-size: 11px; color: var(--moidam-text-faint); margin-left: auto; }
+.dk_color_input { width: 30px; height: 26px; padding: 0; border: 1px solid var(--moidam-line-strong); border-radius: 6px; background: none; cursor: pointer; }
+.dk_tb_btn {
+    padding: 4px 10px; font-size: 12px; font-weight: 600; cursor: pointer;
+    color: var(--moidam-ink-2); background: var(--portal-surface-alt);
+    border: 1px solid var(--moidam-line-strong); border-radius: 6px;
+}
+.dk_tb_btn.is-on { background: var(--moidam-ink); color: #fff; border-color: var(--moidam-ink); }
+
+/* ── 섹션 ── */
+.dk_sec {
+    background: var(--portal-surface);
+    border: 1px solid var(--moidam-card-border);
+    border-radius: var(--moidam-radius);
+    box-shadow: var(--moidam-shadow-soft);
+    padding: 22px 24px 24px; margin-bottom: 20px;
+}
+.dk_sec > h2 {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: var(--moidam-ink);
+    margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--portal-border);
+}
+.dk_sec > h2::before { content: ""; display: inline-block; width: 4px; height: 14px; border-radius: 4px; background: var(--moidam-accent); }
+.dk_sec > h2 small { margin-left: auto; font-size: 11px; font-weight: 600; color: var(--moidam-text-faint); font-family: var(--moidam-font-mono); }
+.dk_sub_h { font-size: 12px; font-weight: 700; color: var(--moidam-text-muted); margin: 18px 0 10px; letter-spacing: .02em; }
+.dk_sub_h:first-of-type { margin-top: 0; }
+.dk_note { font-size: 12px; color: var(--moidam-text-muted); line-height: 1.7; }
+.dk_note code, .dk_label code { font-family: var(--moidam-font-mono); font-size: 11px; background: var(--portal-surface-alt); padding: 1px 5px; border-radius: 4px; }
+
+/* ── 토큰 스와치 그리드 ── */
+.dk_grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+.dk_tok { display: flex; flex-direction: column; gap: 6px; min-width: 0; cursor: copy; }
+.dk_chip {
+    height: 56px; border-radius: 10px; position: relative;
+    border: 1px solid rgba(15, 23, 42, .08);
+}
+.dk_chip_dark {
+    position: absolute; right: 6px; bottom: 6px; width: 18px; height: 18px; border-radius: 50%;
+    border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.15);
+}
+.dk_tok_name { font-size: 12px; font-weight: 700; color: var(--moidam-ink-2); font-family: var(--moidam-font-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dk_tok_val  { font-size: 11px; color: var(--moidam-text-muted); font-family: var(--moidam-font-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dk_tok_desc { font-size: 11px; color: var(--moidam-text-faint); line-height: 1.4; }
+.dk_tok.is-copied .dk_tok_name { color: var(--moidam-accent-hover); }
+
+/* 타이포·모양·그림자·간격 행 */
+.dk_rows { display: flex; flex-direction: column; }
+.dk_row { display: flex; flex-direction: row; align-items: center; gap: 20px; padding: 10px 0; border-bottom: 1px solid var(--moidam-line); }
+.dk_row:last-child { border-bottom: 0; }
+.dk_row_sample { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dk_row_meta { flex: 0 0 320px; font-size: 11px; color: var(--moidam-text-muted); font-family: var(--moidam-font-mono); text-align: right; }
+.dk_row_meta b { display: block; color: var(--moidam-ink-2); font-weight: 700; }
+.dk_shape_row { display: flex; gap: 16px; flex-wrap: wrap; }
+.dk_shape {
+    width: 150px; height: 90px; background: var(--portal-surface);
+    border: 1px solid var(--moidam-card-border);
+    display: flex; flex-direction: row; align-items: flex-end; padding: 10px;
+    font-size: 11px; color: var(--moidam-text-muted); font-family: var(--moidam-font-mono);
+}
+.dk_bar_wrap { display: flex; align-items: center; gap: 12px; }
+.dk_bar { height: 14px; border-radius: 4px; background: var(--moidam-accent-soft); border: 1px solid var(--moidam-accent); box-sizing: border-box; }
+
+/* ── 컴포넌트 시연 ── */
+.dk_row_kit { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.dk_col_kit { display: flex; flex-direction: column; gap: 12px; }
+.dk_kit_grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.dk_kit_grid > div { min-width: 0; }
+.dk_label { font-size: 11px; color: var(--moidam-text-faint); margin-top: 8px; line-height: 1.6; }
+.dk_demo { background: var(--portal-bg); border-radius: 12px; padding: 16px; }
+.dk_demo_dark { background: #0b1020; border-radius: 999px; padding: 4px; display: inline-flex; }
+.dk_demo_side { width: 280px; }
+.dk_demo_side .widget_box, .dk_demo_side .brd_side_widget { margin: 0; }
+.dk_demo .half_board, .dk_demo .portal_tabs, .dk_demo .moidam_pop { margin: 0; }
+.dk_static { position: static !important; }
+
+/* 유틸 */
+.dk_muted { color: var(--moidam-text-muted); }
+.dk_mono { font-family: var(--moidam-font-mono); }
+.dk_sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+@media (max-width: 1100px) {
+    .dk_grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .dk_kit_grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+    .dk_head { flex-direction: column; align-items: flex-start; }
+    .dk_head_src { text-align: left; white-space: normal; }
+    .dk_toolbar { top: 0; }
+    .dk_grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .dk_row { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .dk_row_sample { width: 100%; max-width: 100%; white-space: normal; }
+    .dk_bar_wrap { flex-wrap: wrap; }
+    .dk_row_meta { flex: none; text-align: left; }
+    .dk_demo_side { width: 100%; }
+    .dk_row_kit > * { max-width: 100%; }
+    .dk_sec > h2 { flex-wrap: wrap; }
+    .dk_sec > h2 small { flex-basis: 100%; margin-left: 12px; }
+}
