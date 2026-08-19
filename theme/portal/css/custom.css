@@ -6,16 +6,8 @@
    ============================================================ */
 
 :root {
-    --moidam-accent: #f0a04b;
-    --moidam-accent-hover: #e08b2e;
-    --moidam-accent-soft: rgba(240, 160, 75, 0.16);
-    --moidam-navy-deep: #0b1849;
-    --moidam-radius: 14px;
-    --moidam-shadow: 0 8px 28px rgba(11, 24, 73, 0.08);
-    --moidam-shadow-soft: 0 2px 12px rgba(15, 23, 42, 0.06);
-    --moidam-space: 20px;
-    --moidam-space-lg: 28px;
-    --moidam-card-pad: 18px 20px;
+    /* 색·모양·간격 토큰은 css/tokens.css 가 단일 출처다. 여기서는 옛 이름 호환 별칭만 둔다. */
+    --moidam-navy-deep: var(--portal-primary); /* (구) 네이비 고정값 → 포인트 컬러를 따른다 */
 }
 
 /* ── Header / nav clarity ── */
@@ -25,7 +17,7 @@
     padding: 18px 0;
     position: sticky;
     top: 0;
-    z-index: 200;
+    z-index: var(--moidam-header-z);
     backdrop-filter: saturate(1.1) blur(8px);
     background: rgba(255, 255, 255, 0.92);
 }
@@ -34,7 +26,7 @@ html[data-theme="dark"] #portal_header {
 }
 
 #portal_header .logo a {
-    font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+    font-family: var(--moidam-font-display);
     font-size: 32px;
     font-weight: 800;
     letter-spacing: -0.06em;
@@ -63,7 +55,7 @@ html[data-theme="dark"] #portal_header {
 #portal_gnb {
     box-shadow: 0 1px 0 rgba(15, 23, 42, 0.05);
     background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    border-bottom: 1px solid var(--moidam-card-border);
 }
 #portal_gnb .gnb_list { height: 54px; }
 #portal_gnb .gnb_item > a {
@@ -71,7 +63,7 @@ html[data-theme="dark"] #portal_header {
     font-size: 14px;
     font-weight: 700;
     letter-spacing: -0.02em;
-    color: #1e293b;
+    color: var(--moidam-ink-2);
 }
 #portal_gnb .gnb_item > a::after {
     height: 3px;
@@ -223,14 +215,14 @@ html[data-theme="dark"] #portal_gnb .gnb_item > a { color: #f3eee6; }
     padding: 0 14px;
     border-radius: 999px;
     background: var(--moidam-accent);
-    color: #1a1208 !important;
+    color: var(--moidam-on-accent) !important;
     font-size: 13px;
     font-weight: 800;
     text-decoration: none !important;
 }
 .moidam_hero_demo_login:hover {
     background: var(--moidam-accent-hover);
-    color: #1a1208 !important;
+    color: var(--moidam-on-accent) !important;
 }
 .moidam_hero_eyebrow {
     display: inline-flex;
@@ -289,12 +281,12 @@ html[data-theme="dark"] #portal_gnb .gnb_item > a { color: #f3eee6; }
 }
 .moidam_cta_primary {
     background: var(--moidam-accent);
-    color: #1a1208 !important;
+    color: var(--moidam-on-accent) !important;
     box-shadow: 0 8px 20px rgba(240, 160, 75, 0.35);
 }
 .moidam_cta_primary:hover {
     background: var(--moidam-accent-hover);
-    color: #1a1208 !important;
+    color: var(--moidam-on-accent) !important;
     transform: translateY(-1px);
 }
 .moidam_cta_ghost {
@@ -346,7 +338,7 @@ html[data-theme="dark"] #portal_gnb .gnb_item > a { color: #f3eee6; }
 .brd_side_widget {
     border-radius: var(--moidam-radius) !important;
     box-shadow: var(--moidam-shadow-soft);
-    border-color: rgba(15, 23, 42, 0.06) !important;
+    border-color: var(--moidam-card-border) !important;
 }
 .portal_tabs { overflow: hidden; margin-bottom: var(--moidam-space); }
 .gallery_section {
@@ -436,13 +428,13 @@ html[data-theme="dark"] #portal_gnb .gnb_item > a { color: #f3eee6; }
 .guide_bar_icon { color: var(--portal-primary); }
 .guide_bar_btn {
     background: var(--moidam-accent);
-    color: #1a1208 !important;
+    color: var(--moidam-on-accent) !important;
     border-radius: 999px;
     font-weight: 700;
 }
 .guide_bar_btn:hover {
     background: var(--moidam-accent-hover);
-    color: #1a1208 !important;
+    color: var(--moidam-on-accent) !important;
 }
 .guide_bar_inner {
     display: flex;
@@ -465,7 +457,7 @@ html[data-theme="dark"] .guide_bar {
 
 /* ── Footer simplicity ── */
 #portal_footer {
-    background: #0f172a;
+    background: var(--moidam-footer-bg);
     border-top: none;
     padding: 40px 0 36px;
     margin-top: 28px;
@@ -503,7 +495,10 @@ html[data-theme="dark"] #portal_footer { background: #14110e; }
     font-size: 18px;
     font-weight: 800;
     letter-spacing: -0.03em;
-    color: #0f172a;
+    color: var(--moidam-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .moidam_ql_title::before {
     content: "";
@@ -518,7 +513,7 @@ html[data-theme="dark"] #portal_footer { background: #14110e; }
 .moidam_ql_desc {
     margin: 0;
     font-size: 13px;
-    color: #64748b;
+    color: var(--moidam-text-muted);
     letter-spacing: -0.01em;
 }
 .moidam_quicklinks { margin-bottom: 0; }
@@ -544,7 +539,7 @@ html[data-theme="dark"] .moidam_ql_title { color: #f3eee6; }
     padding: 14px 16px;
     border-radius: 14px;
     background: #fff;
-    border: 1px solid rgba(15, 23, 42, 0.06);
+    border: 1px solid var(--moidam-card-border);
     box-shadow: var(--moidam-shadow-soft);
     text-decoration: none !important;
     color: inherit;
@@ -581,12 +576,15 @@ html[data-theme="dark"] .moidam_ql_title { color: #f3eee6; }
     font-size: 14px;
     font-weight: 800;
     letter-spacing: -0.02em;
-    color: #0f172a;
+    color: var(--moidam-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .moidam_ql_body em {
     font-style: normal;
     font-size: 11px;
-    color: #64748b;
+    color: var(--moidam-text-muted);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -800,11 +798,9 @@ html[data-theme="dark"] .moidam_ql_body strong { color: #f1f5f9; }
     .moidam_stat { padding: 6px 4px; }
 }
 
-/* quicklinks 5-up after humor removed from QL */
-.moidam_quicklinks { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-@media (max-width: 1100px) {
-    .moidam_quicklinks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
+/* 어디로 가볼까요: PC 3열 2행 */
+.moidam_quicklinks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.moidam_ql_card { overflow: hidden; min-width: 0; }
 @media (max-width: 480px) {
     .moidam_quicklinks { grid-template-columns: 1fr 1fr; }
 }
@@ -822,7 +818,7 @@ html[data-theme="dark"] .moidam_ql_body strong { color: #f1f5f9; }
 .moidam_text_link {
     font-size: 13px;
     font-weight: 600;
-    color: #64748b !important;
+    color: var(--moidam-text-muted) !important;
     text-decoration: none !important;
 }
 .moidam_text_link:hover { color: var(--portal-primary) !important; }
@@ -856,7 +852,7 @@ html[data-theme="dark"] .moidam_ql_body strong { color: #f1f5f9; }
     align-items: flex-start;
     gap: 8px;
     padding: 9px 14px;
-    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    border-bottom: 1px solid var(--moidam-card-border);
 }
 .lc_item:last-child { border-bottom: none; }
 .lc_link { flex: 1; min-width: 0; text-decoration: none !important; }
@@ -916,7 +912,7 @@ html[data-theme="dark"] .moidam_ql_body strong { color: #f1f5f9; }
     color: inherit;
 }
 .moidam_stats_bar .moidam_stat strong { color: var(--portal-primary); }
-.moidam_stats_bar .moidam_stat span { color: #64748b; }
+.moidam_stats_bar .moidam_stat span { color: var(--moidam-text-muted); }
 
 
 /* ── Dark: warm ink, amber links, no photo invert ── */
@@ -991,7 +987,7 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
     margin: 0 0 8px;
     font-size: 13px;
     line-height: 1.5;
-    color: #6b7280;
+    color: var(--moidam-text-muted);
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
@@ -1022,7 +1018,7 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
 .pl_nick {
     flex-shrink: 0;
     font-size: 12px;
-    color: #6b7280;
+    color: var(--moidam-text-muted);
     max-width: 7em;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1031,7 +1027,7 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
 .moidam_humor_feed .pl_nick {
     flex-shrink: 0;
     font-size: 12px;
-    color: #6b7280;
+    color: var(--moidam-text-muted);
     max-width: 7em;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1115,7 +1111,7 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
     background: transparent;
     font-size: 13px;
     font-weight: 700;
-    color: #6b7280;
+    color: var(--moidam-text-muted);
     cursor: pointer;
 }
 .moidam_pop_tab.is-on {
@@ -1155,14 +1151,14 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
 .moidam_pop_tit:hover { color: var(--moidam-accent-hover) !important; }
 .moidam_pop_hit {
     font-size: 11px;
-    color: #9ca3af;
+    color: var(--moidam-text-faint);
     flex-shrink: 0;
     white-space: nowrap;
     display: inline-flex;
     align-items: center;
     gap: 3px;
 }
-.moidam_pop_empty { color: #9ca3af; font-size: 13px; padding: 10px 0; }
+.moidam_pop_empty { color: var(--moidam-text-faint); font-size: 13px; padding: 10px 0; }
 .moidam_pop_rank { flex-shrink: 0; }
 
 /* #bo_list 기본 리셋이 ol/li padding을 0으로 밀어버리는 것 방어 */
@@ -1252,14 +1248,14 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
     align-items: center;
     gap: 10px;
     font-size: 12px;
-    color: #9ca3af;
+    color: var(--moidam-text-faint);
 }
 .bsk_wz_author {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     min-width: 0;
-    color: #6b7280;
+    color: var(--moidam-text-muted);
 }
 .bsk_wz_pf, .bsk_wz_pf img, .bsk_wz_pf .profile_img, .bsk_wz_pf .profile_img img {
     width: 24px !important;
@@ -1271,7 +1267,7 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
 }
 .bsk_wz_nick {
     font-size: 12px;
-    color: #6b7280;
+    color: var(--moidam-text-muted);
     max-width: 8em;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1290,7 +1286,7 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
     width: 16px;
     font-size: 12px;
     font-weight: 800;
-    color: #9ca3af;
+    color: var(--moidam-text-faint);
     text-align: center;
     flex-shrink: 0;
 }
@@ -1318,7 +1314,7 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
     font-weight: 700;
     color: var(--moidam-accent-hover);
 }
-.pr_empty { padding: 12px; font-size: 13px; color: #9ca3af; text-align: center; }
+.pr_empty { padding: 12px; font-size: 13px; color: var(--moidam-text-faint); text-align: center; }
 
 /* 방문 현황 밀도 */
 .widget_visit .visit_list {
@@ -1335,7 +1331,7 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
     align-items: baseline;
     padding: 8px 14px;
 }
-.widget_visit .visit_label { font-size: 12px; color: #6b7280; }
+.widget_visit .visit_label { font-size: 12px; color: var(--moidam-text-muted); }
 .widget_visit .visit_val { font-size: 14px; font-weight: 800; color: #1a1a1a; }
 .widget_visit .visit_total { color: var(--moidam-accent-hover); }
 
@@ -1392,7 +1388,7 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
     margin: 0 0 8px;
     font-size: 11px;
     font-weight: 700;
-    color: #9ca3af;
+    color: var(--moidam-text-faint);
     letter-spacing: .02em;
 }
 .sch_recent_list {
@@ -1417,7 +1413,7 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
 }
 .sch_recent_list a:hover {
     background: var(--moidam-accent-soft);
-    color: #1a1208 !important;
+    color: var(--moidam-on-accent) !important;
 }
 
 /* ── Mobile main widgets only (PC unchanged) ── */
@@ -1553,7 +1549,7 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
 
 /* 검색어 하이라이트 — 코어 분홍 박스 대신 앰버 텍스트 */
 .sch_word {
-    color: var(--moidam-accent-hover, #e08b2e) !important;
+    color: var(--moidam-accent-hover) !important;
     background: transparent !important;
     padding: 0 !important;
     margin: 0 !important;
@@ -1632,7 +1628,7 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
 .ol_notice {
     margin: 0 0 12px;
     font-size: 13px;
-    color: #1e293b;
+    color: var(--moidam-ink-2);
     font-weight: 700;
     letter-spacing: -0.02em;
     text-align: center;
@@ -1782,4 +1778,146 @@ html[data-theme="dark"] .moidam_stats_bar .moidam_stat span { color: var(--porta
         overflow-x: auto;
         flex-wrap: nowrap;
     }
+}
+
+/* 메인 동영상 최신 위젯 */
+.moidam_video_section .moidam_section_head {
+    padding: 0 0 12px;
+    margin: 0 0 16px;
+    border-bottom: 1px solid var(--moidam-card-border);
+}
+.moidam_video_section h3 {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.moidam_video_section h3 i { color: var(--moidam-accent); margin-right: 2px; }
+.moidam_video_latest .moidam_vl_thumb,
+.moidam-swiper-video .moidam_vl_thumb {
+    aspect-ratio: 16 / 9;
+    background: #121826;
+    border-radius: 8px;
+}
+.moidam_video_latest .moidam_vl_empty,
+.moidam-swiper-video .moidam_vl_empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #98a2b3;
+    font-size: 28px;
+}
+.moidam_video_latest .moidam_vl_play,
+.moidam-swiper-video .moidam_vl_play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 36px;
+    height: 36px;
+    margin: -18px 0 0 -18px;
+    border-radius: 50%;
+    background: rgba(8, 14, 36, 0.62);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    pointer-events: none;
+}
+.moidam_video_latest .moidam_vl_dur,
+.moidam-swiper-video .moidam_vl_dur,
+.moidam_video_latest .moidam_vl_proc,
+.moidam-swiper-video .moidam_vl_proc {
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    padding: 1px 6px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 800;
+    color: #fff;
+    background: rgba(8, 14, 36, 0.78);
+}
+.moidam_video_latest .moidam_vl_proc,
+.moidam-swiper-video .moidam_vl_proc { background: var(--moidam-accent); color: var(--moidam-on-accent); }
+@media (max-width: 768px) {
+    .moidam-swiper { padding: 0; }
+}
+/* 메인 위젯 Swiper — 공식 레이아웃 + 모담 카드 */
+.gallery_section .swiper,
+.moidam-swiper.swiper,
+.moidam-swiper {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    list-style: none;
+    z-index: 1;
+    min-width: 0;
+    box-sizing: border-box;
+}
+.gallery_section .swiper-wrapper,
+.moidam-swiper .swiper-wrapper {
+    display: flex;
+    box-sizing: content-box;
+    width: 100%;
+    height: auto;
+    transition-property: transform;
+}
+.gallery_section .swiper-slide,
+.moidam-swiper .swiper-slide {
+    flex-shrink: 0;
+    display: block;
+    height: auto;
+    min-width: 0;
+    position: relative;
+}
+.moidam-swiper .pl_gal_link {
+    display: block;
+    min-width: 0;
+}
+.moidam-swiper .pl_gal_thumb {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.moidam-swiper .pl_gal_thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.moidam-swiper .pl_gal_tit {
+    display: block;
+    min-width: 0;
+    margin-top: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.moidam-swiper-video .moidam_vl_thumb,
+.moidam-swiper-video .pl_gal_thumb,
+.moidam_video_latest .moidam_vl_thumb { aspect-ratio: 16 / 9; }
+.gallery_section .swiper-button-prev,
+.gallery_section .swiper-button-next,
+.moidam-swiper .swiper-button-prev,
+.moidam-swiper .swiper-button-next { display: none; }
+.gallery_section .swiper-pagination,
+.moidam-swiper.swiper-horizontal > .swiper-pagination-bullets,
+.moidam-swiper .swiper-pagination {
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin-top: 12px;
+    text-align: center;
+}
+.moidam-swiper .swiper-pagination-bullet { background: #94a3b8; opacity: 1; }
+.moidam-swiper .swiper-pagination-bullet-active { background: var(--moidam-accent); }
+@media (max-width: 560px) {
+    .moidam-swiper { padding: 0; }
 }

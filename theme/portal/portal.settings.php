@@ -5,7 +5,7 @@ include_once G5_THEME_PATH.'/_cmt_badge.php';
 define('PORTAL_DATA_PATH',     G5_THEME_PATH.'/data');
 define('PORTAL_SETTINGS_FILE', PORTAL_DATA_PATH.'/portal.settings.json');
 
-// 테마 포인트 컬러 프리셋. 'default'는 테마 원래 색상(css/default.css :root 기본값)과 동일해야 한다.
+// 테마 포인트 컬러 프리셋. 'default'는 테마 원래 색상(css/tokens.css :root 기본값)과 동일해야 한다.
 // 새 프리셋을 추가할 때는 이 배열에 한 줄만 추가하면 관리자 UI/저장 검증/실제 반영에 전부 쓰인다.
 // hover 는 프리셋마다 명시적으로 지정한다. 'default'는 테마가 원래 쓰던 hover 색상(#02b050)을
 // 그대로 보존하기 위해 일부러 아래 portal_theme_darken_hex() 계산값을 쓰지 않고 고정 지정한다.

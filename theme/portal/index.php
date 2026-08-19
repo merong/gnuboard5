@@ -1,5 +1,6 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
+if (!defined('MOIDAM_USE_SWIPER')) define('MOIDAM_USE_SWIPER', true);
 include_once(G5_THEME_PATH.'/head.php');
 
 /*
@@ -52,16 +53,6 @@ $tab_items = array_map(function($bo) use ($_bo_label) {
 ?>
 
 <?php
-/* ── 사이트 통계 (히어로용) ── */
-$_hero_visitors = (int)(sql_fetch("SELECT COUNT(*) as c FROM {$g5['login_table']} WHERE mb_id <> '{$config['cf_admin']}'")['c'] ?? 0);
-$_hero_posts    = (int)(sql_fetch("SELECT SUM(bo_count_write) as c FROM {$g5['board_table']}")['c'] ?? 0);
-$_hero_boards   = (int)(sql_fetch("SELECT COUNT(*) as c FROM {$g5['board_table']}")['c'] ?? 0);
-$_hero_views    = 0;
-$_boards_rs = sql_query("SELECT bo_table FROM {$g5['board_table']}");
-while ($_brow = sql_fetch_array($_boards_rs)) {
-    $_r = sql_fetch("SELECT SUM(wr_hit) as c FROM {$g5['write_prefix']}{$_brow['bo_table']}");
-    $_hero_views += (int)($_r['c'] ?? 0);
-}
 $_hero_bg = G5_THEME_URL.'/img/hero_day.jpg';
 
 /* 퀵링크용 게시판 카운트 */
@@ -71,6 +62,7 @@ $_ql_boards = array(
     array('bo' => 'food',    'label' => '맛집·먹거리','desc' => '맛있는 발견', 'icon' => 'fa-cutlery'),
     array('bo' => 'hobby',   'label' => '취미·관심사','desc' => '취미 모임',   'icon' => 'fa-heart-o'),
     array('bo' => 'qa',      'label' => '질문답변',   'desc' => '궁금할 때',   'icon' => 'fa-question-circle'),
+    array('bo' => 'video',   'label' => '동영상',     'desc' => '영상 모음',   'icon' => 'fa-play-circle'),
 );
 $_ql_counts = array();
 foreach ($_ql_boards as $_qb) {
@@ -118,16 +110,6 @@ foreach ($_ql_boards as $_qb) {
     <!-- 왼쪽 영역 (메인 콘텐츠) -->
     <div class="grid_left">
 
-        <div class="moidam_hero_stats moidam_stats_bar" aria-label="사이트 현황">
-            <div class="moidam_stat">
-                <strong><?php echo number_format($_hero_posts) ?></strong>
-                <span>게시글</span>
-            </div>
-            <div class="moidam_stat">
-                <strong><?php echo number_format(max($_hero_visitors, 1)) ?></strong>
-                <span>접속자</span>
-            </div>
-        </div>
 
         <!-- 게시판 퀵링크 -->
         <section class="moidam_ql_wrap" aria-label="게시판 바로가기">
@@ -182,7 +164,19 @@ foreach ($_ql_boards as $_qb) {
         <!-- 2. 갤러리 방식 최신글 -->
         <div class="gallery_section">
             <h3><a href="<?php echo G5_BBS_URL ?>/board.php?bo_table=<?php echo $gallery_bo ?>"><?php echo $gallery_label ?></a></h3>
-            <?php echo latest('theme/pic_block', $gallery_bo, 8, 23); ?>
+            <?php echo latest('theme/pic_block', $gallery_bo, 12, 23); ?>
+        </div>
+
+        <!-- 2b. 동영상 최신 위젯 -->
+        <div class="gallery_section moidam_video_section">
+            <div class="moidam_section_head">
+                <h3><a href="<?php echo G5_BBS_URL ?>/board.php?bo_table=video"><i class="fa fa-play-circle" aria-hidden="true"></i> 동영상</a></h3>
+                <div class="moidam_section_actions">
+                    <a class="moidam_text_link" href="<?php echo G5_BBS_URL ?>/board.php?bo_table=video">더보기</a>
+                    <a class="moidam_text_link moidam_text_link_accent" href="<?php echo G5_BBS_URL ?>/write.php?bo_table=video">영상 올리기</a>
+                </div>
+            </div>
+            <?php echo latest('theme/video_block', 'video', 12, 32); ?>
         </div>
 
         <!-- 3. 라이프 그리드: 일상 / 맛집 / 취미 / 후기 -->
@@ -230,7 +224,7 @@ foreach ($_ql_boards as $_qb) {
         <!-- 맛집 사진 하이라이트 -->
         <div class="gallery_section moidam_food_pics">
             <h3><a href="<?php echo G5_BBS_URL ?>/board.php?bo_table=food">맛집·먹거리 포토</a></h3>
-            <?php echo latest('theme/pic_block', 'food', 4, 23); ?>
+            <?php echo latest('theme/pic_block', 'food', 8, 23); ?>
         </div>
 
     </div>

@@ -177,6 +177,30 @@ if ($_popular_list):
     </div>
 </div>
 
+<?php
+global $g5, $config;
+$_st_login = sql_fetch("SELECT COUNT(*) as c FROM ".$g5["login_table"]);
+$_st_board = sql_fetch("SELECT SUM(bo_count_write) as c FROM ".$g5["board_table"]);
+$_side_visitors = (int)($_st_login["c"] ?? 0);
+$_side_posts    = (int)($_st_board["c"] ?? 0);
+?>
+<!-- 사이트 현황 -->
+<div class="widget_box widget_visit widget_site_stats">
+    <div class="widget_title">사이트 현황</div>
+    <div class="widget_content">
+        <ul class="visit_list">
+            <li class="visit_item">
+                <span class="visit_label">게시글</span>
+                <span class="visit_val"><?php echo number_format($_side_posts) ?></span>
+            </li>
+            <li class="visit_item">
+                <span class="visit_label">접속자</span>
+                <span class="visit_val"><?php echo number_format(max($_side_visitors, 1)) ?></span>
+            </li>
+        </ul>
+    </div>
+</div>
+
 <!-- 방문 현황 위젯 -->
 <div class="widget_box widget_visit">
     <div class="widget_title">방문 현황</div>

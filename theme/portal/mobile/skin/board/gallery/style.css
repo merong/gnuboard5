@@ -6,12 +6,12 @@
 :root {
     --mg-primary:    var(--portal-primary);
     --mg-primary-dk: var(--portal-primary-hover);
-    --mg-text:       #1a1a1a;
-    --mg-meta:       #888;
+    --mg-text:       var(--portal-text);
+    --mg-meta:       var(--portal-text-sub);
     --mg-border:     #efefef;
-    --mg-bg:         #f4f5f7;
+    --mg-bg:         var(--portal-bg);
     --mg-white:      #fff;
-    --mg-radius:     8px;
+    --mg-radius:     var(--moidam-radius-sm);
 }
 
 .mg_board {
@@ -221,10 +221,10 @@ li.mg_item.sv_zfix { z-index: 50 !important; }
     white-space: nowrap; vertical-align: middle;
 }
 .mg_badge_notice { background: var(--mg-primary); color: #fff; }
-.mg_badge_cate   { background: #e8f9ef; color: var(--mg-primary); border: 1px solid #c3edda; }
+.mg_badge_cate   { background: var(--portal-primary-soft); color: var(--mg-primary); border: 1px solid var(--portal-primary-soft-line); }
 .mg_badge_new {
     position: absolute; top: 5px; right: 5px;
-    background: #ff4f4f; color: #fff;
+    background: var(--moidam-new); color: #fff;
     font-size: 10px; font-weight: 700;
     padding: 1px 5px; border-radius: 3px;
 }
@@ -263,8 +263,8 @@ li.mg_item.sv_zfix { z-index: 50 !important; }
     align-items: center; justify-content: center;
     font-size: 9px; font-weight: 700;
     color: var(--mg-primary);
-    background: #e8f9ef;
-    border: 1px solid #c3edda;
+    background: var(--portal-primary-soft);
+    border: 1px solid var(--portal-primary-soft-line);
     border-radius: 10px;
     padding: 1px 4px;
     margin-left: 2px;

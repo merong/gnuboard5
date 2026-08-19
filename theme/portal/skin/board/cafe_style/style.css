@@ -5,15 +5,15 @@
 :root {
     --cs-primary:    var(--portal-primary);
     --cs-primary-dk: var(--portal-primary-hover);
-    --cs-red:        #ff3a48;
+    --cs-red:        var(--moidam-hot);
     --cs-text:       #333;
-    --cs-text-sub:   #888;
-    --cs-border:     #f2f2f2;
+    --cs-text-sub:   var(--portal-text-sub);
+    --cs-border:     var(--moidam-line);
     --cs-border-hd:  #e4e8eb;
     --cs-bg-head:    #f9f9f9;
     --cs-bg-hover:   #fafbfc;
     --cs-bg-notice:  #fffdf5;
-    --cs-radius:     4px;
+    --cs-radius:     var(--moidam-radius-xs);
 }
 
 /* ================================================================
@@ -199,7 +199,7 @@
 
 #bo_list.cafe_board .icon_new {
     display: inline-block !important;
-    background: #ff4747 !important;
+    background: var(--moidam-new) !important;
     color: #fff !important;
     font-size: 10px !important;
     font-weight: 700 !important;
